@@ -11,6 +11,8 @@ type PageDocumentDataSlicesSlice =
   | SkyDiveSlice
   | HeroSlice;
 
+type PageDocumentDataSlices1Slice = never;
+
 /**
  * Content for Page documents
  */
@@ -67,6 +69,17 @@ interface PageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   meta_image: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.slices1[]
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices1: prismic.SliceZone<PageDocumentDataSlices1Slice>;
 }
 
 /**
@@ -441,6 +454,7 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      PageDocumentDataSlices1Slice,
       AllDocumentTypes,
       AlternatingTextSlice,
       AlternatingTextSliceDefaultPrimaryTextGroupItem,

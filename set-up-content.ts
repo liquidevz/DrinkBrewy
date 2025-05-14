@@ -45,8 +45,16 @@ async function main() {
     );
     const allDocuments = await sourceClient.dangerouslyGetAll();
 
+    // Fetch all documents from the destination repo to get their UIDs
+    const existingDocuments = await writeClient.dangerouslyGetAll();
+    const existingUIDs = new Set(existingDocuments.map(doc => doc.uid));
+
     const migration = createMigration();
     for (const document of allDocuments) {
+      if (document.uid && existingUIDs.has(document.uid)) {
+        console.log(`Skipping document with UID "${document.uid}" (already exists)`);
+        continue;
+      }
       migration.createDocumentFromPrismic(
         document,
         (document.uid || document.type)

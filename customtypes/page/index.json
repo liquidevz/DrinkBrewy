@@ -9,7 +9,7 @@
       "uid": {
         "type": "UID",
         "config": {
-          "label": "UID",
+          "label": "DrinkBrewy",
           "placeholder": ""
         }
       },
@@ -70,6 +70,13 @@
             "height": 1260
           },
           "thumbnails": []
+        }
+      },
+      "slices1": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
         }
       }
     }

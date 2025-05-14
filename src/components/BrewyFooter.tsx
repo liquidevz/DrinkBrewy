@@ -1,13 +1,13 @@
 import { SVGProps } from "react";
 
-export function FizziLogo(props: SVGProps<SVGSVGElement>) {
+export function BrewyFooter(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="900"
-      height="1000"
-      viewBox="130 110 135 134.999991"
+      width="300"
+      height="200"
+      viewBox="0 0 375 374.999991"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
       {...props}
