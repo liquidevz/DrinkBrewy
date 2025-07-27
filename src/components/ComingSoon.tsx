@@ -31,7 +31,7 @@ export default function ComingSoon() {
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl lg:text-2xl text-sky-800 mb-8 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          We're crafting an extraordinary experience that will refresh your world. 
+          We&apos;re crafting an extraordinary experience that will refresh your world. 
           Get ready for the ultimate fizzy adventure!
         </p>
 
