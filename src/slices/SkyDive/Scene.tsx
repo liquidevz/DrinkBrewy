@@ -187,7 +187,7 @@ function ThreeText({
       fontWeight={900}
       anchorX={"center"}
       anchorY={"middle"}
-      characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ!,.?'"
+      characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ!,.?&apos;"
     >
       {word}
     </Text>
