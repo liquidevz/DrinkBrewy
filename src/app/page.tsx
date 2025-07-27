@@ -36,7 +36,7 @@ export default function Home() {
     >
       <h1 style={{ fontSize: "3rem", marginBottom: "1rem" }}>🚀 Coming Soon</h1>
       <p style={{ fontSize: "1.25rem", maxWidth: "600px" }}>
-        We're working hard on something amazing. Check back soon!
+        We&apos;re working hard on something amazing. Check back soon!
       </p>
     </main>
   );
