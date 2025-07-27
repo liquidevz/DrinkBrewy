@@ -2,12 +2,30 @@ import React from "react";
 import { BrewyLogo } from "@/components/BrewyLogo";
 
 export default function ComingSoon() {
+  const animationDelays = {
+    background: "1s",
+    text1: "0.2s",
+    text2: "0.4s",
+    subtitle: "0.6s",
+    dots: "0.8s",
+    dot1: "0.1s",
+    dot2: "0.2s",
+    button: "1s",
+    social: "1.2s",
+    float1: "2s",
+    float2: "2.5s",
+    float3: "3s"
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-300 to-orange-200 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute -top-10 -right-10 w-80 h-80 bg-orange-400 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-sky-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div 
+          className="absolute -bottom-10 -left-10 w-80 h-80 bg-sky-400 rounded-full blur-3xl animate-pulse" 
+          style={{ animationDelay: animationDelays.background }}
+        ></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-300 rounded-full blur-3xl animate-spin-slow"></div>
       </div>
 
@@ -21,29 +39,50 @@ export default function ComingSoon() {
         {/* Main Heading */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-sky-900 mb-6 tracking-tight">
           <span className="block animate-fade-in-up">Something</span>
-          <span className="block animate-fade-in-up text-orange-600" style={{ animationDelay: '0.2s' }}>
+          <span 
+            className="block animate-fade-in-up text-orange-600" 
+            style={{ animationDelay: animationDelays.text1 }}
+          >
             Fizztastic
           </span>
-          <span className="block animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <span 
+            className="block animate-fade-in-up" 
+            style={{ animationDelay: animationDelays.text2 }}
+          >
             is Brewing
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl lg:text-2xl text-sky-800 mb-8 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <p 
+          className="text-lg md:text-xl lg:text-2xl text-sky-800 mb-8 max-w-2xl leading-relaxed animate-fade-in-up" 
+          style={{ animationDelay: animationDelays.subtitle }}
+        >
           We&apos;re crafting an extraordinary experience that will refresh your world. 
           Get ready for the ultimate fizzy adventure!
         </p>
 
         {/* Animated Dots */}
-        <div className="flex space-x-2 mb-12 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+        <div 
+          className="flex space-x-2 mb-12 animate-fade-in-up" 
+          style={{ animationDelay: animationDelays.dots }}
+        >
           <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-          <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+          <div 
+            className="w-3 h-3 bg-orange-500 rounded-full animate-bounce" 
+            style={{ animationDelay: animationDelays.dot1 }}
+          ></div>
+          <div 
+            className="w-3 h-3 bg-orange-500 rounded-full animate-bounce" 
+            style={{ animationDelay: animationDelays.dot2 }}
+          ></div>
         </div>
 
         {/* Notify Button */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '1s' }}>
+        <div 
+          className="animate-fade-in-up" 
+          style={{ animationDelay: animationDelays.button }}
+        >
           <button className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-orange-600 rounded-xl hover:bg-orange-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-lg hover:shadow-xl">
             <span className="relative z-10">Notify Me When Ready</span>
             <div className="absolute inset-0 w-full h-full transition-all duration-300 scale-0 bg-white rounded-xl group-hover:scale-110 opacity-20"></div>
@@ -51,7 +90,10 @@ export default function ComingSoon() {
         </div>
 
         {/* Social Links */}
-        <div className="mt-12 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
+        <div 
+          className="mt-12 animate-fade-in-up" 
+          style={{ animationDelay: animationDelays.social }}
+        >
           <p className="text-sky-700 text-sm mb-4">Follow us for updates</p>
           <div className="flex space-x-6">
             <a href="#" className="text-sky-600 hover:text-orange-600 transition-colors duration-200 transform hover:scale-110">
@@ -74,13 +116,22 @@ export default function ComingSoon() {
       </div>
 
       {/* Floating Elements */}
-      <div className="absolute top-20 right-20 animate-bounce" style={{ animationDelay: '2s' }}>
+      <div 
+        className="absolute top-20 right-20 animate-bounce" 
+        style={{ animationDelay: animationDelays.float1 }}
+      >
         <div className="w-4 h-4 bg-orange-400 rounded-full opacity-60"></div>
       </div>
-      <div className="absolute bottom-20 left-20 animate-bounce" style={{ animationDelay: '2.5s' }}>
+      <div 
+        className="absolute bottom-20 left-20 animate-bounce" 
+        style={{ animationDelay: animationDelays.float2 }}
+      >
         <div className="w-6 h-6 bg-sky-400 rounded-full opacity-60"></div>
       </div>
-      <div className="absolute top-1/3 right-10 animate-bounce" style={{ animationDelay: '3s' }}>
+      <div 
+        className="absolute top-1/3 right-10 animate-bounce" 
+        style={{ animationDelay: animationDelays.float3 }}
+      >
         <div className="w-3 h-3 bg-yellow-500 rounded-full opacity-80"></div>
       </div>
     </div>
