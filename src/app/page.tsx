@@ -1,43 +1,34 @@
-// app/page.tsx
+import { Metadata } from "next";
 
-import type { Metadata } from "next";
+import { SliceZone } from "@prismicio/react";
+import * as prismic from "@prismicio/client";
 
-export const metadata: Metadata = {
-  title: "Coming Soon",
-  description: "Something awesome is on the way. Stay tuned!",
-  openGraph: {
-    title: "Coming Soon",
-    description: "Something awesome is on the way. Stay tuned!",
-    images: [
-      {
-        url: "/coming-soon-og.jpg", // optional: put this image in /public/
-        width: 1200,
-        height: 630,
-        alt: "Coming Soon",
-      },
-    ],
-  },
-};
+import { createClient } from "@/prismicio";
+import { components } from "@/slices";
 
-export default function Home() {
-  return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        textAlign: "center",
-        backgroundColor: "#f9f9f9",
-        color: "#333",
-        padding: "2rem",
-      }}
-    >
-      <h1 style={{ fontSize: "3rem", marginBottom: "1rem" }}>🚀 Coming Soon</h1>
-      <p style={{ fontSize: "1.25rem", maxWidth: "600px" }}>
-        We&apos;re working hard on something amazing. Check back soon!
-      </p>
-    </main>
-  );
+// This component renders your homepage.
+//
+// Use Next's generateMetadata function to render page metadata.
+//
+// Use the SliceZone to render the content of the page.
+
+export async function generateMetadata(): Promise<Metadata> {
+  const client = createClient();
+  const home = await client.getByUID("page", "home");
+
+  return {
+    title: prismic.asText(home.data.title),
+    description: home.data.meta_description,
+    openGraph: {
+      title: home.data.meta_title ?? undefined,
+      images: [{ url: home.data.meta_image.url ?? "" }],
+    },
+  };
 }
+
+export default async function Index() {
+  // The client queries content from the Prismic API
+  const client = createClient();
+  const home = await client.getByUID("page", "home");
+
+  return <SliceZone slices={home.data.slices} components={components} />;
