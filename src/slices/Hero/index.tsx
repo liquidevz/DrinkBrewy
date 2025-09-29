@@ -76,10 +76,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         .fromTo(
           "body",
           {
-            backgroundColor: "#FDE047",
+            backgroundColor: "#C41E3A",
           },
           {
-            backgroundColor: "#D9F99D",
+            backgroundColor: "#C41E3A",
             overwrite: "auto",
           },
           1,

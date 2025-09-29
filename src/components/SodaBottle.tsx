@@ -3,37 +3,29 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
-useGLTF.preload("/result.gltf");
+useGLTF.preload("/Soda-can.gltf");
 
 const flavorTextures = {
-  lemonLime: "/labels/brewy.png",
-  grape: "/labels/brewy.png",
-  blackCherry: "/labels/brewy.png",
-  strawberryLemonade: "/labels/brewy.png",
-  watermelon: "/labels/brewy.png",
+  lemonLime: "/labels/lemon-lime.png",
+  grape: "/labels/grape.png",
+  blackCherry: "/labels/cherry.png",
+  strawberryLemonade: "/labels/strawberry.png",
+  watermelon: "/labels/watermelon.png",
 };
 
-const metalMaterial = new THREE.MeshStandardMaterial({
-  roughness: 0.3,
-  metalness: 1,
-  color: "#bbbbbb",
-});
-
-export type SodaCanProps = {
+export type SodaBottleProps = {
   flavor?: keyof typeof flavorTextures;
   scale?: number;
 };
 
-export function SodaCan({
+export function SodaBottle({
   flavor = "blackCherry",
   scale = 2,
   ...props
-}: SodaCanProps) {
-  const { nodes } = useGLTF("/result.gltf");
-
+}: SodaBottleProps) {
+  const { nodes } = useGLTF("/Soda-can.gltf");
   const labels = useTexture(flavorTextures);
 
-  // Fixes upside down labels
   labels.strawberryLemonade.flipY = false;
   labels.blackCherry.flipY = false;
   labels.watermelon.flipY = false;
@@ -47,9 +39,8 @@ export function SodaCan({
       <mesh
         castShadow
         receiveShadow
-        geometry={(nodes.node as THREE.Mesh).geometry}
-        scale={0.007}
-        position={[-0.2, -0.7, -0.2]}
+        geometry={(nodes.can as THREE.Mesh).geometry}
+        scale={[1, 1.5, 1]}
       >
         <meshStandardMaterial roughness={0.15} metalness={0.7} map={label} transparent={true} />
       </mesh>

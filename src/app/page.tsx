@@ -5,6 +5,7 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import BrewyTV from "@/components/BrewyTV";
 
 // This component renders your homepage.
 //
@@ -31,5 +32,14 @@ export default async function Index() {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
-  return <SliceZone slices={home.data.slices} components={components} />;
+  const slicesBeforeBigText = home.data.slices.filter((slice: any) => slice.slice_type !== 'big_text');
+  const bigTextSlices = home.data.slices.filter((slice: any) => slice.slice_type === 'big_text');
+
+  return (
+    <>
+      <SliceZone slices={slicesBeforeBigText} components={components} />
+      <BrewyTV />
+      <SliceZone slices={bigTextSlices} components={components} />
+    </>
+  );
 }

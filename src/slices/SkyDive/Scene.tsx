@@ -25,6 +25,7 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
   const cloud2Ref = useRef<THREE.Group>(null);
   const cloudsRef = useRef<THREE.Group>(null);
   const wordsRef = useRef<THREE.Group>(null);
+  const isDesktop = useMediaQuery("(min-width: 768px)", true);
 
   const ANGLE = 75 * (Math.PI / 180);
 
@@ -102,7 +103,7 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
 
     scrollTl
       .to("body", {
-        backgroundColor: "#C0F0F5",
+        backgroundColor: "#E85A7A",
         overwrite: "auto",
         duration: 0.1,
       })
@@ -142,8 +143,9 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
           rotationIntensity={0}
           floatIntensity={3}
           floatSpeed={3}
+          scale={isDesktop ? 1 : 0.6}
         >
-          <pointLight intensity={30} color="#8C0413" decay={0.6} />
+          <pointLight intensity={30} color="#E85A7A" decay={0.6} />
         </FloatingCan>
       </group>
 
@@ -159,7 +161,7 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
       </group>
 
       {/* Lights */}
-      <ambientLight intensity={2} color="#9DDEFA" />
+      <ambientLight intensity={2} color="#F5B2C4" />
       <Environment files="/hdr/field.hdr" environmentIntensity={1.5} />
     </group>
   );
@@ -174,7 +176,11 @@ function ThreeText({
 }) {
   const words = sentence.toUpperCase().split(" ");
 
-  const material = new THREE.MeshLambertMaterial();
+  const material = new THREE.MeshStandardMaterial({
+    emissive: color,
+    emissiveIntensity: 0.5,
+    color: color,
+  });
   const isDesktop = useMediaQuery("(min-width: 950px)", true);
 
   return words.map((word: string, wordIndex: number) => (

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Ice Cold Refreshment",
+    "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Summer Chill Vibes",
+    "embedUrl": "https://www.youtube.com/embed/9bZkp7q19f0",
+    "thumbnail": "https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Cool Down Moment",
+    "embedUrl": "https://www.youtube.com/embed/L_jWHffIx5E",
+    "thumbnail": "https://img.youtube.com/vi/L_jWHffIx5E/maxresdefault.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Fizzy Fresh Taste",
+    "embedUrl": "https://www.youtube.com/embed/fJ9rUzIMcZQ",
+    "thumbnail": "https://img.youtube.com/vi/fJ9rUzIMcZQ/maxresdefault.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Ultimate Refresher",
+    "embedUrl": "https://www.youtube.com/embed/ZZ5LpwO-An4",
+    "thumbnail": "https://img.youtube.com/vi/ZZ5LpwO-An4/maxresdefault.jpg"
+  }
+]

@@ -29,7 +29,7 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
     >
       <div>
         <div className="relative z-[100] grid">
-          <View className="alternating-text-view absolute left-0 top-0 h-screen w-full">
+          <View className="alternating-text-view absolute left-0 top-0 h-screen w-full z-[110]">
             <Scene />
           </View>
 
