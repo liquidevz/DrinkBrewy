@@ -13,6 +13,7 @@ type FloatingCanProps = {
   floatIntensity?: number;
   floatingRange?: [number, number];
   children?: ReactNode;
+  scale?: number;
 };
 
 const FloatingCan = forwardRef<Group, FloatingCanProps>(
