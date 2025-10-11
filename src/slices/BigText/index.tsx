@@ -1,10 +1,11 @@
-import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { BigTextSlice } from "@/data/content";
 
 /**
  * Props for `BigText`.
  */
-export type BigTextProps = SliceComponentProps<Content.BigTextSlice>;
+export type BigTextProps = {
+  slice: BigTextSlice;
+};
 
 /**
  * Component for "BigText" Slices.
@@ -12,8 +13,8 @@ export type BigTextProps = SliceComponentProps<Content.BigTextSlice>;
 const BigText = ({ slice }: BigTextProps): JSX.Element => {
   return (
     <section
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
+      data-slice-type={slice.type}
+      data-slice-variation="default"
       className="min-h-screen w-screen overflow-hidden bg-[#C41E3A] text-[#FEE832]"
     >
       <h2 className="grid w-full gap-[3vw] py-10 text-center font-black uppercase leading-[.7]">

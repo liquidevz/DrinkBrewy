@@ -1,11 +1,5 @@
 "use client";
 
-import { Content } from "@prismicio/client";
-import {
-  PrismicRichText,
-  PrismicText,
-  SliceComponentProps,
-} from "@prismicio/react";
 import { Center, Environment, View } from "@react-three/drei";
 import { useRef, useState } from "react";
 import clsx from "clsx";
@@ -16,6 +10,7 @@ import FloatingCan from "@/components/FloatingCan";
 import { SodaCanProps } from "@/components/SodaCan";
 import { ArrowIcon } from "./ArrowIcon";
 import { WavyCircles } from "./WavyCircles";
+import { CarouselSlice } from "@/data/content";
 
 const SPINS_ON_CHANGE = 8;
 const FLAVORS: {
@@ -37,7 +32,9 @@ const FLAVORS: {
 /**
  * Props for `Carousel`.
  */
-export type CarouselProps = SliceComponentProps<Content.CarouselSlice>;
+export type CarouselProps = {
+  slice: CarouselSlice;
+};
 
 /**
  * Component for "Carousel" Slices.
@@ -82,8 +79,8 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
 
   return (
     <section
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
+      data-slice-type={slice.type}
+      data-slice-variation="default"
       className="carousel relative grid h-screen grid-rows-[auto,4fr,auto] justify-center overflow-hidden bg-white py-12 text-white"
     >
       <div className="background pointer-events-none absolute inset-0 bg-[#710523] opacity-50" />
@@ -91,7 +88,7 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
       <WavyCircles className="absolute left-1/2 top-1/2 h-[120vmin] -translate-x-1/2 -translate-y-1/2 text-[#710523]" />
 
       <h2 className="relative text-center text-5xl font-bold">
-        <PrismicText field={slice.primary.heading} />
+        {slice.heading}
       </h2>
 
       <div className="grid grid-cols-[auto,auto,auto] items-center">
@@ -132,7 +129,7 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
           <p>{FLAVORS[currentFlavorIndex].name}</p>
         </div>
         <div className="mt-2 text-2xl font-normal opacity-90">
-          <PrismicRichText field={slice.primary.price_copy} />
+          <p>{slice.price_copy}</p>
         </div>
       </div>
     </section>

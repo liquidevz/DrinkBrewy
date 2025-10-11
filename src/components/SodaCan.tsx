@@ -51,7 +51,14 @@ export function SodaCan({
         scale={0.007}
         position={[-0.2, -0.7, -0.2]}
       >
-        <meshStandardMaterial roughness={0.15} metalness={0.7} map={label} transparent={true} />
+        <meshStandardMaterial 
+          roughness={0.15} 
+          metalness={0.7} 
+          map={label} 
+          transparent={true}
+          opacity={0.3}
+          color="#ffffff"
+        />
       </mesh>
     </group>
   );

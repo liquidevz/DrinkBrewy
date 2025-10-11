@@ -3,7 +3,7 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
-useGLTF.preload("/Soda-can.gltf");
+useGLTF.preload("/result.gltf");
 
 const flavorTextures = {
   lemonLime: "/labels/lemon-lime.png",
@@ -23,7 +23,7 @@ export function SodaBottle({
   scale = 2,
   ...props
 }: SodaBottleProps) {
-  const { nodes } = useGLTF("/Soda-can.gltf");
+  const { nodes } = useGLTF("/result.gltf");
   const labels = useTexture(flavorTextures);
 
   labels.strawberryLemonade.flipY = false;
@@ -39,7 +39,7 @@ export function SodaBottle({
       <mesh
         castShadow
         receiveShadow
-        geometry={(nodes.can as THREE.Mesh).geometry}
+        geometry={(nodes.node as THREE.Mesh).geometry}
         scale={[1, 1.5, 1]}
       >
         <meshStandardMaterial roughness={0.15} metalness={0.7} map={label} transparent={true} />

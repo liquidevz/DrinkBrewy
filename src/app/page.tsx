@@ -1,45 +1,45 @@
 import { Metadata } from "next";
-
-import { SliceZone } from "@prismicio/react";
-import * as prismic from "@prismicio/client";
-
-import { createClient } from "@/prismicio";
-import { components } from "@/slices";
+import { homePageData } from "@/data/content";
+import { Hero, AlternatingText, Carousel, BigText, SkyDive } from "@/slices";
 import BrewyTV from "@/components/BrewyTV";
 
-// This component renders your homepage.
-//
-// Use Next's generateMetadata function to render page metadata.
-//
-// Use the SliceZone to render the content of the page.
-
 export async function generateMetadata(): Promise<Metadata> {
-  const client = createClient();
-  const home = await client.getByUID("page", "home");
-
   return {
-    title: prismic.asText(home.data.title),
-    description: home.data.meta_description,
+    title: homePageData.meta_title,
+    description: homePageData.meta_description,
     openGraph: {
-      title: home.data.meta_title ?? undefined,
-      images: [{ url: home.data.meta_image.url ?? "" }],
+      title: homePageData.meta_title,
     },
   };
 }
 
-export default async function Index() {
-  // The client queries content from the Prismic API
-  const client = createClient();
-  const home = await client.getByUID("page", "home");
-
-  const slicesBeforeBigText = home.data.slices.filter((slice: any) => slice.slice_type !== 'big_text');
-  const bigTextSlices = home.data.slices.filter((slice: any) => slice.slice_type === 'big_text');
+export default function Index() {
+  const slicesBeforeBigText = homePageData.slices.filter((slice) => slice.type !== 'big_text');
+  const bigTextSlices = homePageData.slices.filter((slice) => slice.type === 'big_text');
 
   return (
     <>
-      <SliceZone slices={slicesBeforeBigText} components={components} />
+      {slicesBeforeBigText.map((slice, index) => {
+        switch (slice.type) {
+          case "hero":
+            return <Hero key={index} slice={slice} />;
+          case "alternating_text":
+            return <AlternatingText key={index} slice={slice} />;
+          case "carousel":
+            return <Carousel key={index} slice={slice} />;
+          case "skydive":
+            return <SkyDive key={index} slice={slice} />;
+          default:
+            return null;
+        }
+      })}
       <BrewyTV />
-      <SliceZone slices={bigTextSlices} components={components} />
+      {bigTextSlices.map((slice, index) => {
+        if (slice.type === "big_text") {
+          return <BigText key={index} slice={slice} />;
+        }
+        return null;
+      })}
     </>
   );
 }

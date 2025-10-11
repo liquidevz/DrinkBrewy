@@ -12,6 +12,7 @@ type FloatingBottleProps = {
   floatIntensity?: number;
   floatingRange?: [number, number];
   children?: ReactNode;
+  scale?: number;
 };
 
 const FloatingBottle = forwardRef<Group, FloatingBottleProps>(
@@ -23,6 +24,7 @@ const FloatingBottle = forwardRef<Group, FloatingBottleProps>(
       floatIntensity = 1,
       floatingRange = [-0.1, 0.1],
       children,
+      scale = 2,
       ...props
     },
     ref,
@@ -36,7 +38,7 @@ const FloatingBottle = forwardRef<Group, FloatingBottleProps>(
           floatingRange={floatingRange}
         >
           {children}
-          <SodaBottle flavor={flavor} />
+          <SodaBottle flavor={flavor} scale={scale} />
         </Float>
       </group>
     );
