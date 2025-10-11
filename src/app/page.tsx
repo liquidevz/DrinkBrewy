@@ -3,6 +3,8 @@ import { homePageData } from "@/data/content";
 import { Hero, AlternatingText, Carousel, BigText, SkyDive } from "@/slices";
 import BrewyTV from "@/components/BrewyTV";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: homePageData.meta_title,
