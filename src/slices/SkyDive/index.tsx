@@ -17,10 +17,10 @@ export type SkyDiveProps = {
  */
 const SkyDive = ({ slice }: SkyDiveProps): JSX.Element => {
   return (
-    <Bounded
+    <div
       data-slice-type={slice.type}
       data-slice-variation="default"
-      className="skydive h-screen"
+      className="skydive h-screen w-screen"
     >
       <h2 className="sr-only">Refreshing Brewy Experience</h2>
       <View className="h-screen w-screen">
@@ -29,7 +29,7 @@ const SkyDive = ({ slice }: SkyDiveProps): JSX.Element => {
           sentence="Refreshing Brewy Experience"
         />
       </View>
-    </Bounded>
+    </div>
   );
 };
 

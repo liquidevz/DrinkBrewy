@@ -64,6 +64,9 @@
         second_body: "Available in stores nationwide. Try all our amazing flavors today!"
         },
         {
+        type: "skydive"
+        },
+        {
         type: "alternating_text",
         text_group: [
             {
@@ -96,9 +99,6 @@
         {
         type: "big_text",
         text: "REFRESHINGLY DIFFERENT"
-        },
-        {
-        type: "skydive"
         }
     ]
     };

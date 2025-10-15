@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 const Loader = dynamic(
@@ -13,6 +13,20 @@ const Loader = dynamic(
 type Props = {};
 
 export default function ViewCanvas({}: Props) {
+  const [webglSupported, setWebglSupported] = useState(true);
+
+  useEffect(() => {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      setWebglSupported(false);
+    }
+  }, []);
+
+  if (!webglSupported) {
+    return null;
+  }
+
   return (
     <>
       <Canvas
@@ -27,9 +41,12 @@ export default function ViewCanvas({}: Props) {
         }}
         shadows
         dpr={[1, 1.5]}
-        gl={{ antialias: true }}
+        gl={{ antialias: true, failIfMajorPerformanceCaveat: false }}
         camera={{
           fov: 30,
+        }}
+        onCreated={({ gl }) => {
+          gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }}
       >
         <Suspense fallback={null}>

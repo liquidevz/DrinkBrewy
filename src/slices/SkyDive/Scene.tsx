@@ -96,14 +96,14 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
         trigger: ".skydive",
         pin: true,
         start: "top top",
-        end: "+=2000",
+        end: "+=2200",
         scrub: 1.5,
       },
     });
 
     scrollTl
       .to("body", {
-        backgroundColor: "#E85A7A",
+        backgroundColor: "#FFF8DD",
         overwrite: "auto",
         duration: 0.1,
       })

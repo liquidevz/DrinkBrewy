@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      colors: {
+        cream: "#FFF8DD",
+      },
       fontFamily: {
         sans: ["var(--font-alpino)", "sans-serif"],
       },

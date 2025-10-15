@@ -86,10 +86,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         .fromTo(
           "body",
           {
-            backgroundColor: "#C41E3A",
+            backgroundColor: "#FFF8DD",
           },
           {
-            backgroundColor: "#C41E3A",
+            backgroundColor: "#FFF8DD",
             overwrite: "auto",
           },
           1,
@@ -127,14 +127,14 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       <div className="grid">
         <div className="grid h-screen place-items-center">
           <div className="grid auto-rows-min place-items-center text-center">
-            <h1 className="hero-header text-7xl font-black uppercase leading-[.8] text-white md:text-[9rem] lg:text-[13rem]">
+            <h1 className="hero-header text-7xl font-black uppercase leading-[.8] text-red-600 md:text-[9rem] lg:text-[13rem]">
               <TextSplitter
                 text={slice.heading}
                 wordDisplayStyle="block"
                 className="hero-header-word"
               />
             </h1>
-            <div className="hero-subtitle mt-4 text-xl font-medium text-white/80">
+            <div className="hero-subtitle mt-4 text-xl font-medium text-red-600/80">
               <p>{slice.subtitle}</p>
             </div>
             <div className="hero-subheading mt-12 text-5xl font-semibold text-sky-950 lg:text-6xl">

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import "./app.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingButton from "@/components/FloatingButton";
 
 const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
   ssr: false,
@@ -31,6 +32,7 @@ export default function RootLayout({
         </main>
         <Footer />
       </body>
+      <FloatingButton />
     </html>
   );
 }
