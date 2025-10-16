@@ -5,6 +5,7 @@ import { View } from "@react-three/drei";
 import Scene from "./Scene";
 import clsx from "clsx";
 import { AlternatingTextSlice } from "@/data/content";
+import Image from "next/image";
 
 /**
  * Props for `AlternatingText`.
@@ -21,11 +22,12 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
     <Bounded
       data-slice-type={slice.type}
       data-slice-variation="default"
-      className="alternating-text-container relative bg-yellow-300 text-sky-950"
+      className="alternating-text-container relative text-sky-950"
+      style={{ backgroundColor: '#FFF8DD' }}
     >
       <div>
         <div className="relative z-[100] grid">
-          <View className="alternating-text-view absolute left-0 top-0 h-screen w-full z-[110]">
+          <View className="alternating-text-view absolute left-0 top-0 h-screen w-full z-[120]">
             <Scene />
           </View>
 
@@ -37,16 +39,16 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
               <div
                 className={clsx(
                   index % 2 === 0 ? "col-start-1" : "md:col-start-2",
-
-                  "rounded-lg p-4 backdrop-blur-lg max-md:bg-white/30",
+                  "rounded-lg p-4 backdrop-blur-lg max-md:bg-white/30 relative z-[105]",
                 )}
               >
-                <h2 className="text-balance text-6xl font-bold">
-                  {item.heading}
-                </h2>
-                <div className="mt-4 text-xl">
-                  <p>{item.body}</p>
-                </div>
+                <Image
+                  src="/AlternatingText.png"
+                  alt="DrinkBrewy Features"
+                  width={400}
+                  height={600}
+                  className="object-contain"
+                />
               </div>
             </div>
           ))}

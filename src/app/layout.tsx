@@ -31,8 +31,8 @@ export default function RootLayout({
           <ViewCanvas />
         </main>
         <Footer />
+        <FloatingButton />
       </body>
-      <FloatingButton />
     </html>
   );
 }
