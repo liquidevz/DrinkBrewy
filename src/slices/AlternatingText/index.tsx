@@ -43,8 +43,8 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
                 )}
               >
                 <Image
-                  src="/AlternatingText.png"
-                  alt="DrinkBrewy Features"
+                  src={item.image || "/AlternatingText.png"}
+                  alt={item.heading}
                   width={400}
                   height={600}
                   className="object-contain"

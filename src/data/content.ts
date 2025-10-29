@@ -3,6 +3,7 @@
     export interface TextGroup {
     heading: string;
     body: string;
+    image?: string;
     }
 
     export interface HeroSlice {
@@ -70,24 +71,29 @@
         type: "alternating_text",
         text_group: [
             {
-            heading: "Strawberry Sensation",
-            body: "Sweet and refreshing strawberry flavor that bursts with every sip. Made with real fruit extracts for an authentic taste experience."
+            heading: "B Care",
+            body: "Everything that feels & tastes good doesn't have to wreck you. Brewy proved it! Plants, Fibre, Pre-biotics - All Natural. Brewy will always put your wellness first!",
+            image: "/1.png"
             },
             {
-            heading: "Cherry Blast",
-            body: "Bold cherry flavor with a perfect balance of sweet and tart. A classic favorite that never gets old."
+            heading: "The Brewy Promise",
+            body: "We believe in transparency and quality. Every can is crafted with care to deliver the perfect balance of taste and health.",
+            image: "/2.png"
             },
             {
-            heading: "Grape Fusion",
-            body: "Rich grape taste that's smooth and satisfying. Perfect for any time of day when you need a refreshing break."
+            heading: "Commerce",
+            body: "We don't play the premium nonsense game. Good for you ≠ expensive. If margins cry too bad, it still tastes right. We'll go broke before we go fake.",
+            image: "/3.png"
             },
             {
-            heading: "Lemon-Lime Sparkle",
-            body: "Crisp and citrusy with a perfect fizz. The ultimate thirst quencher that keeps you coming back for more."
+            heading: "Creativity",
+            body: "No AI, No Bollywood heroes, No overproduced 'relatable' ads. Our first film was a french indie shot in Mumbai. We're bringing back creativity - the kind you can't automate.",
+            image: "/4.png"
             },
             {
-            heading: "Watermelon Wave",
-            body: "Fresh watermelon flavor that's light and refreshing. Summer in a can, available all year round."
+            heading: "Community",
+            body: "Brewy is NOT a product. It's a people thing. Made for traffic jams, bad meetings, unread feelings. Built for messy lives & guilty playlists. Meant to be passed hand to hand.",
+            image: "/5.png"
             }
         ]
         },

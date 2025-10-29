@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { homePageData } from "@/data/content";
 import { Hero, AlternatingText, Carousel, BigText, SkyDive } from "@/slices";
-import BrewyTV from "@/components/BrewyTV";
 
 export const dynamic = 'force-dynamic';
 
@@ -35,7 +34,6 @@ export default function Index() {
             return null;
         }
       })}
-      <BrewyTV />
       {bigTextSlices.map((slice, index) => {
         if (slice.type === "big_text") {
           return <BigText key={index} slice={slice} />;
