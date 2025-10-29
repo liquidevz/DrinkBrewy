@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { homePageData } from "@/data/content";
 import { Hero, AlternatingText, Carousel, BigText, SkyDive } from "@/slices";
+import TVPlayer from "@/components/TVPlayer";
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +35,9 @@ export default function Index() {
             return null;
         }
       })}
+      <div className="bg-gradient-to-b from-[#C41E3A] to-[#A3182F] py-12 md:py-20">
+        <TVPlayer />
+      </div>
       {bigTextSlices.map((slice, index) => {
         if (slice.type === "big_text") {
           return <BigText key={index} slice={slice} />;
