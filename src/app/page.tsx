@@ -24,18 +24,18 @@ export default function Index() {
       {slicesBeforeBigText.map((slice, index) => {
         switch (slice.type) {
           case "hero":
-            return <Hero key={index} slice={slice} />;
+            return <div key={index} id="home"><Hero slice={slice} /></div>;
           case "alternating_text":
-            return <AlternatingText key={index} slice={slice} />;
+            return <div key={index} id="care"><AlternatingText slice={slice} /></div>;
           case "carousel":
-            return <Carousel key={index} slice={slice} />;
+            return <div key={index} id="flavors"><Carousel slice={slice} /></div>;
           case "skydive":
             return <SkyDive key={index} slice={slice} />;
           default:
             return null;
         }
       })}
-      <div className="bg-gradient-to-b from-[#C41E3A] to-[#A3182F] py-12 md:py-20">
+      <div id="community" className="bg-gradient-to-b from-[#C41E3A] to-[#A3182F] py-12 md:py-20">
         <TVPlayer />
       </div>
       {bigTextSlices.map((slice, index) => {

@@ -5,6 +5,7 @@ import "./app.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
+import SideStaggerNavigation from "@/components/SideStaggerNavigation";
 
 const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
   ssr: false,
@@ -32,6 +33,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <FloatingButton />
+        <SideStaggerNavigation />
       </body>
     </html>
   );
