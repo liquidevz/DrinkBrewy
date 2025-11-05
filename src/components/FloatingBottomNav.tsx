@@ -31,7 +31,7 @@ const FloatingBottomNav = () => {
   );
 };
 
-const NavLink = ({ text, Icon, href }) => {
+const NavLink = ({ text, Icon, href }: { text: string; Icon: any; href: string }) => {
   return (
     <Link
       href={href}

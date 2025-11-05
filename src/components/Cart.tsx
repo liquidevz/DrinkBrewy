@@ -14,7 +14,7 @@ export default function Cart({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     setIsOpen(true);
     initializeCart();
-  }, []);
+  }, [initializeCart]);
 
   const handleClose = () => {
     setIsOpen(false);

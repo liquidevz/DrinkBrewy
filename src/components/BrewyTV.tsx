@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, X } from 'lucide-react'; // Fun icons
 import videosData from "@/data/videos.json"; // Your video data
@@ -35,9 +36,11 @@ const HorizontalTVScroller = () => {
     <div className="relative flex flex-col items-center justify-center">
       {/* TV Frame and Screen */}
       <div className="relative w-full max-w-sm md:max-w-4xl z-10">
-        <img 
+        <Image 
           src="/labels/tv.png" 
           alt="TV Frame" 
+          width={800}
+          height={600}
           className="w-full h-auto pointer-events-none" // Make image non-interactive
         />
         <div className="absolute top-[0.6%] left-[0.4%] w-[99.2%] h-[88.3%] overflow-hidden bg-black rounded-sm">
@@ -118,9 +121,11 @@ const VideoPlayer = ({ video }: { video: any }) => {
         </div>
       ) : (
         <div className="relative w-full h-full cursor-pointer" onClick={() => setIsPlaying(true)}>
-          <img
+          <Image
             src={video.thumbnail}
             alt={video.title}
+            width={800}
+            height={600}
             className="w-full h-full object-contain transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />

@@ -5,10 +5,6 @@ import { useState, useEffect } from 'react';
 export default function OrdersAdmin() {
   const [orders, setOrders] = useState<any[]>([]);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
   const getHeaders = () => ({
     'Content-Type': 'application/json',
     'x-admin-password': localStorage.getItem('adminPassword') || ''
@@ -21,6 +17,10 @@ export default function OrdersAdmin() {
     const data = await res.json();
     setOrders(data);
   };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const updateStatus = async (id: string, status: string) => {
     await fetch(`http://localhost:5000/api/admin/orders/${id}/status`, {

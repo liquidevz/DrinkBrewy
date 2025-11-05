@@ -27,7 +27,7 @@ const FLAVOR_MAP: Record<string, string> = {
 
 export async function getShopifyProducts(): Promise<FrontendProduct[]> {
   try {
-    const products = await getProducts({});
+    const products = await getProducts();
     
     return products.map(transformProduct).filter(Boolean) as FrontendProduct[];
   } catch (error) {

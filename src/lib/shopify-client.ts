@@ -125,7 +125,9 @@ export async function createCart(): Promise<Cart> {
   });
 
   const cart = reshapeCart(res.body.data.cartCreate.cart);
-  setCartId(cart.id);
+  if (cart.id) {
+    setCartId(cart.id);
+  }
   return cart;
 }
 
@@ -136,8 +138,10 @@ export async function addToCart(
   
   if (!currentCartId) {
     const newCart = await createCart();
-    currentCartId = newCart.id;
+    currentCartId = newCart.id || null;
   }
+
+  if (!currentCartId) throw new Error('Failed to create cart');
 
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,

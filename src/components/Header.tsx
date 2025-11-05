@@ -16,9 +16,9 @@ export default function Header() {
   const itemCount = cart?.totalQuantity || 0;
 
   const [scope, animate] = useAnimate();
-  const navRef = useRef(null);
+  const navRef = useRef<HTMLElement | null>(null);
 
-  const handleMouseMove = ({ offsetX, offsetY, target }) => {
+  const handleMouseMove = ({ offsetX, offsetY, target }: { offsetX: number; offsetY: number; target: any }) => {
     const isNavElement = [...target.classList].includes("glass-nav");
 
     if (isNavElement) {
@@ -32,9 +32,10 @@ export default function Header() {
   };
 
   useEffect(() => {
-    navRef.current?.addEventListener("mousemove", handleMouseMove);
-    return () => navRef.current?.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    const nav = navRef.current;
+    nav?.addEventListener("mousemove", handleMouseMove);
+    return () => nav?.removeEventListener("mousemove", handleMouseMove);
+  }, [handleMouseMove]);
 
   return (
     <>
@@ -57,7 +58,7 @@ export default function Header() {
   );
 }
 
-const Cursor = ({ hovered, scope }) => (
+const Cursor = ({ hovered, scope }: { hovered: boolean; scope: any }) => (
   <motion.span
     initial={false}
     animate={{
@@ -87,7 +88,7 @@ const Links = () => (
   </div>
 );
 
-const GlassLink = ({ text, href }) => (
+const GlassLink = ({ text, href }: { text: string; href: string }) => (
   <Link
     href={href}
     className="group relative scale-100 overflow-hidden rounded-lg px-4 py-2 transition-transform hover:scale-105 active:scale-95"
@@ -99,13 +100,13 @@ const GlassLink = ({ text, href }) => (
   </Link>
 );
 
-const TextLink = ({ text, href }) => (
+const TextLink = ({ text, href }: { text: string; href: string }) => (
   <Link href={href} className="text-[#C41E3A]/90 transition-colors hover:text-[#C41E3A] text-lg font-medium">
     {text}
   </Link>
 );
 
-const Buttons = ({ setMenuOpen, itemCount, setCartOpen }) => (
+const Buttons = ({ setMenuOpen, itemCount, setCartOpen }: { setMenuOpen: (open: boolean | ((prev: boolean) => boolean)) => void; itemCount: number; setCartOpen: (open: boolean) => void }) => (
   <div className="flex items-center gap-4">
     <button 
       onClick={() => setCartOpen(true)}
@@ -127,7 +128,7 @@ const Buttons = ({ setMenuOpen, itemCount, setCartOpen }) => (
   </div>
 );
 
-const MobileMenu = ({ menuOpen }) => {
+const MobileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
   const [ref, { height }] = useMeasure();
   return (
     <motion.div

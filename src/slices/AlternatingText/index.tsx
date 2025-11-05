@@ -70,7 +70,7 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
               className="alternating-section grid h-screen place-items-center gap-x-12 md:grid-cols-2 px-4"
             >
               <div
-                ref={(el) => (imageRefs.current[index] = el)}
+                ref={(el) => { imageRefs.current[index] = el; }}
                 className={clsx(
                   index % 2 === 0 ? "col-start-1" : "md:col-start-2",
                   "rounded-lg p-4 backdrop-blur-lg max-md:bg-white/30 relative z-[105] opacity-0 transition-opacity duration-1000",
