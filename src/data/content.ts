@@ -23,10 +23,8 @@
     text_group: TextGroup[];
     }
 
-    export interface CarouselSlice {
-    type: "carousel";
-    heading: string;
-    price_copy: string;
+    export interface ProductGridSlice {
+    type: "product_grid";
     }
 
     export interface BigTextSlice {
@@ -38,7 +36,13 @@
     type: "skydive";
     }
 
-    export type Slice = HeroSlice | AlternatingTextSlice | CarouselSlice | BigTextSlice | SkyDiveSlice;
+    export interface CarouselSlice {
+    type: "carousel";
+    heading: string;
+    price_copy: string;
+    }
+
+    export type Slice = HeroSlice | AlternatingTextSlice | ProductGridSlice | BigTextSlice | SkyDiveSlice | CarouselSlice;
 
     export interface PageData {
     title: string;
@@ -76,31 +80,27 @@
             image: "/1.png"
             },
             {
-            heading: "The Brewy Promise",
-            body: "We believe in transparency and quality. Every can is crafted with care to deliver the perfect balance of taste and health.",
-            image: "/2.png"
+            heading: "Creativity",
+            body: "No AI, No Bollywood heroes, No overproduced 'relatable' ads. Our first film was a french indie shot in Mumbai. We're bringing back creativity - the kind you can't automate.",
+            image: "/5.png"
             },
+
             {
             heading: "Commerce",
             body: "We don't play the premium nonsense game. Good for you ≠ expensive. If margins cry too bad, it still tastes right. We'll go broke before we go fake.",
-            image: "/3.png"
-            },
-            {
-            heading: "Creativity",
-            body: "No AI, No Bollywood heroes, No overproduced 'relatable' ads. Our first film was a french indie shot in Mumbai. We're bringing back creativity - the kind you can't automate.",
             image: "/4.png"
             },
             {
             heading: "Community",
             body: "Brewy is NOT a product. It's a people thing. Made for traffic jams, bad meetings, unread feelings. Built for messy lives & guilty playlists. Meant to be passed hand to hand.",
-            image: "/5.png"
-            }
+            image: "/6.png"
+            },
         ]
         },
         {
         type: "carousel",
-        heading: "Choose Your Flavor",
-        price_copy: "Starting at $2.99 per can. Available in 6-packs and 12-packs."
+        heading: " ",
+        price_copy: "Starting at ₹25"
         },
         {
         type: "big_text",

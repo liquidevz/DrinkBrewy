@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Group } from "three";
 import gsap from "gsap";
@@ -24,6 +24,14 @@ export default function Scene({}: Props) {
   const groupRef = useRef<Group>(null);
 
   const FLOAT_SPEED = 1.5;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useGSAP(() => {
     if (
@@ -38,9 +46,10 @@ export default function Scene({}: Props) {
     isReady();
 
     // Set can starting location
-    gsap.set(can1Ref.current.position, { x: -1.5 });
+    const xOffset = isMobile ? 1 : 1.5;
+    gsap.set(can1Ref.current.position, { x: -xOffset });
     gsap.set(can1Ref.current.rotation, { z: -0.5 });
-    gsap.set(can2Ref.current.position, { x: 1.5 });
+    gsap.set(can2Ref.current.position, { x: xOffset });
     gsap.set(can2Ref.current.rotation, { z: 0.5 });
 
     const introTl = gsap.timeline({
@@ -72,11 +81,11 @@ export default function Scene({}: Props) {
 
     scrollTl
       .to(groupRef.current.rotation, { y: Math.PI * 2 })
-      .to(can1Ref.current.position, { x: 0.3, y: 0, z: -0.5 }, 0)
+      .to(can1Ref.current.position, { x: isMobile ? 0.2 : 0.3, y: 0, z: isMobile ? -0.3 : -0.5 }, 0)
       .to(can1Ref.current.rotation, { z: 0.3 }, 0)
-      .to(can2Ref.current.position, { x: 1.2, y: 0, z: -1.5 }, 0)
+      .to(can2Ref.current.position, { x: isMobile ? 0.8 : 1.2, y: 0, z: isMobile ? -1 : -1.5 }, 0)
       .to(can2Ref.current.rotation, { z: -0.3 }, 0);
-  });
+  }, [isMobile]);
 
   return (
     <group ref={groupRef}>

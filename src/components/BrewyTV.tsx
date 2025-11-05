@@ -102,7 +102,7 @@ const VideoPlayer = ({ video }: { video: any }) => {
       {isPlaying ? (
         <div className="relative w-full h-full">
           <iframe
-            src={`${video.embedUrl}?autoplay=1&mute=0&controls=1`}
+            src={`${video.embedUrl}?autoplay=0&controls=1`}
             className="w-full h-full"
             frameBorder="0"
             allow="autoplay; encrypted-media; fullscreen"

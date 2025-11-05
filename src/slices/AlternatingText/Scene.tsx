@@ -43,8 +43,8 @@ export default function Scene({}: Props) {
 
         const isOdd = index % 2 !== 0;
 
-        const xPosition = isDesktop ? (isOdd ? "-1" : "1") : 0;
-        const yRotation = isDesktop ? (isOdd ? ".4" : "-.4") : 0;
+        const xPosition = isDesktop ? (isOdd ? "-1" : "1") : (isOdd ? "-0.5" : "0.5");
+        const yRotation = isDesktop ? (isOdd ? ".4" : "-.4") : (isOdd ? ".2" : "-.2");
         scrollTl
           .to(canRef.current.position, {
             x: xPosition,
@@ -68,8 +68,8 @@ export default function Scene({}: Props) {
   return (
     <group
       ref={canRef}
-      position-x={isDesktop ? 1 : 0}
-      rotation-y={isDesktop ? -0.3 : 0}
+      position-x={isDesktop ? 1 : 0.5}
+      rotation-y={isDesktop ? -0.3 : -0.2}
     >
       <FloatingCan flavor="strawberryLemonade" />
       <Environment files={"/hdr/lobby.hdr"} environmentIntensity={1.5} />

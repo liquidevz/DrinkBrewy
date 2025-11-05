@@ -33,7 +33,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
 
   useGSAP(
     () => {
-      if (!ready && isDesktop) return;
+      if (!ready) return;
 
       const introTl = gsap.timeline();
 
@@ -108,7 +108,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
           opacity: 0,
         });
     },
-    { dependencies: [ready, isDesktop] },
+    { dependencies: [ready] },
   );
 
   return (
@@ -117,12 +117,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation="default"
       className="hero opacity-0"
     >
-      {isDesktop && (
-        <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
-          <Scene />
-          <Bubbles count={300} speed={2} repeat={true} />
-        </View>
-      )}
+      <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] h-screen w-screen">
+        <Scene />
+        <Bubbles count={300} speed={2} repeat={true} />
+      </View>
 
       <div className="grid">
         <div className="grid h-screen place-items-center">
@@ -152,13 +150,6 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         </div>
 
         <div className="text-side relative z-[80] grid h-screen items-center gap-4 md:grid-cols-2">
-          <Image
-            className="w-full md:hidden"
-            src={slice.cans_image}
-            alt="DrinkBrewy Cans"
-            width={600}
-            height={600}
-          />
           <div>
             <h2 className="text-side-heading text-balance text-6xl font-black uppercase text-sky-950 lg:text-8xl">
               <TextSplitter text="Try All Flavors" />

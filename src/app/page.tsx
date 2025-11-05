@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { homePageData } from "@/data/content";
-import { Hero, AlternatingText, Carousel, BigText, SkyDive } from "@/slices";
+import { Hero, AlternatingText, ProductGrid, BigText, SkyDive, Carousel } from "@/slices";
 import TVPlayer from "@/components/TVPlayer";
 
 export const dynamic = 'force-dynamic';

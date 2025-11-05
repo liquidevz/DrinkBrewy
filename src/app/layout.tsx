@@ -4,8 +4,10 @@ import dynamic from "next/dynamic";
 import "./app.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingButton from "@/components/FloatingButton";
-import SideStaggerNavigation from "@/components/SideStaggerNavigation";
+
+
+import CartInitializer from "@/components/CartInitializer";
+import FloatingBottomNav from "@/components/FloatingBottomNav";
 
 const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
   ssr: false,
@@ -25,15 +27,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={alpino.variable}>
+      <head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+      </head>
       <body className="overflow-x-hidden bg-cream">
+        <CartInitializer />
         <Header />
         <main>
           {children}
           <ViewCanvas />
         </main>
         <Footer />
-        <FloatingButton />
-        <SideStaggerNavigation />
+        <FloatingBottomNav />
       </body>
     </html>
   );

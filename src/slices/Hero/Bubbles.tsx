@@ -29,6 +29,9 @@ export function Bubbles({
   const material = new THREE.MeshStandardMaterial({
     transparent: true,
     opacity,
+    color: 0xffffff,
+    emissive: 0xffffff,
+    emissiveIntensity: 0.3,
   });
 
   // Runs once to create and place our bubbles
@@ -69,8 +72,7 @@ export function Bubbles({
       return;
     }
 
-    // Assign current body color to bubble so it looks natural
-    material.color = new THREE.Color(document.body.style.backgroundColor);
+
 
     for (let i = 0; i < count; i++) {
       meshRef.current.getMatrixAt(i, o.matrix);
