@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 
-import CartInitializer from "@/components/CartInitializer";
+
 import FloatingBottomNav from "@/components/FloatingBottomNav";
 
 const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
@@ -31,7 +31,7 @@ export default function RootLayout({
         <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
       <body className="overflow-x-hidden bg-cream">
-        <CartInitializer />
+
         <Header />
         <main>
           {children}

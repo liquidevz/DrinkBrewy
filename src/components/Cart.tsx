@@ -8,7 +8,6 @@ import ShiprocketCheckout from "@/components/ShiprocketCheckout";
 export default function Cart({ onClose }: { onClose: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const { items, updateQuantity, removeItem, clearCart, getTotalItems, getTotalPrice } = useCart();
-  const [customer, setCustomer] = useState({ name: "", email: "", address: "" });
   const [ordered, setOrdered] = useState(false);
 
   useEffect(() => {
@@ -25,11 +24,11 @@ export default function Cart({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <div 
-        onClick={handleClose} 
+      <div
+        onClick={handleClose}
         className={`fixed inset-0 z-50 bg-black/50 transition-all duration-700 ease-out ${isOpen ? 'opacity-100 backdrop-blur-sm' : 'opacity-0'}`}
       />
-      <div 
+      <div
         className={`fixed z-50 bg-gradient-to-br from-[#C41E3A]/95 to-red-500/95 backdrop-blur-md shadow-2xl overflow-y-auto transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]
           md:right-0 md:top-0 md:h-full md:w-full md:max-w-md ${isOpen ? 'md:translate-x-0 md:scale-100' : 'md:translate-x-full md:scale-95'}
           max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:h-[85vh] max-md:rounded-t-3xl ${isOpen ? 'max-md:translate-y-0 max-md:scale-100' : 'max-md:translate-y-full max-md:scale-95'}`}>
@@ -42,18 +41,18 @@ export default function Cart({ onClose }: { onClose: () => void }) {
               </span>
             )}
           </div>
-          <button 
-            onClick={handleClose} 
+          <button
+            onClick={handleClose}
             className="p-2 hover:bg-white/20 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-90 text-white"
           >
             <X size={24} />
           </button>
         </div>
-        
+
         <div className="p-6 pb-64">
           <AnimatePresence mode="wait">
             {items.length === 0 ? (
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -73,14 +72,14 @@ export default function Cart({ onClose }: { onClose: () => void }) {
                 <p className="text-white/80">Thank you for your order</p>
               </motion.div>
             ) : (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-4"
               >
                 {items.map((item, index) => (
-                  <motion.div 
+                  <motion.div
                     key={item.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -94,21 +93,21 @@ export default function Cart({ onClose }: { onClose: () => void }) {
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2 bg-white/10 rounded-lg p-1">
-                          <button 
+                          <button
                             onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
                             className="p-1 hover:bg-white/20 rounded transition-all duration-200 text-white"
                           >
                             <Minus size={16} />
                           </button>
                           <span className="w-8 text-center font-bold text-white">{item.quantity}</span>
-                          <button 
+                          <button
                             onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
                             className="p-1 hover:bg-white/20 rounded transition-all duration-200 text-white"
                           >
                             <Plus size={16} />
                           </button>
                         </div>
-                        <button 
+                        <button
                           onClick={() => removeItem(item.variantId)}
                           className="p-2 hover:bg-red-500/30 rounded-lg transition-all duration-200 text-white"
                         >
@@ -122,14 +121,14 @@ export default function Cart({ onClose }: { onClose: () => void }) {
             )}
           </AnimatePresence>
         </div>
-        
+
         {items.length > 0 && !ordered && (
           <div className="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20 p-6">
             <div className="flex justify-between items-center mb-4 text-white">
               <span className="text-lg font-bold">Total</span>
               <span className="text-2xl font-black">₹{total.toFixed(2)}</span>
             </div>
-            <ShiprocketCheckout 
+            <ShiprocketCheckout
               amount={total}
               items={items}
               onSuccess={() => {

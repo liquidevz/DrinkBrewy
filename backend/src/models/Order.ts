@@ -53,11 +53,11 @@ const OrderSchema: Schema = new Schema(
       email: { type: String, required: true },
       phone: { type: String, required: true },
       address: {
-        line1: { type: String, required: true },
+        line1: { type: String },
         line2: { type: String },
-        city: { type: String, required: true },
-        state: { type: String, required: true },
-        pincode: { type: String, required: true },
+        city: { type: String },
+        state: { type: String },
+        pincode: { type: String },
         country: { type: String, default: 'India' }
       }
     },

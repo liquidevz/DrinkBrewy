@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error('Shiprocket API Error:', JSON.stringify(errorData, null, 2));
       throw new Error(errorData.message || 'Failed to generate checkout token');
     }
 
