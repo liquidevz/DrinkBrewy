@@ -3,7 +3,7 @@ import { useCart } from "@/hooks/useCart";
 import { useState, useEffect } from "react";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import RazorpayCheckout from "@/components/RazorpayCheckout";
+import ShiprocketCheckout from "@/components/ShiprocketCheckout";
 
 export default function Cart({ onClose }: { onClose: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -129,7 +129,7 @@ export default function Cart({ onClose }: { onClose: () => void }) {
               <span className="text-lg font-bold">Total</span>
               <span className="text-2xl font-black">₹{total.toFixed(2)}</span>
             </div>
-            <RazorpayCheckout 
+            <ShiprocketCheckout 
               amount={total}
               items={items}
               onSuccess={() => {
