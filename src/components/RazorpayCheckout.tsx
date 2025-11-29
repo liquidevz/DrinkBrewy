@@ -34,6 +34,10 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
         })
       });
       
+      if (!orderRes.ok) {
+        throw new Error('Failed to create order');
+      }
+
       const order = await orderRes.json();
 
       const options = {
@@ -45,6 +49,27 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
         order_id: order.id,
         handler: async (response: any) => {
           try {
+            // Prepare items for shipment
+            const items = cart.lines.map(line => ({
+              id: line.merchandise.id,
+              name: line.merchandise.product.title,
+              sku: line.merchandise.sku || `BREWY-${line.merchandise.id}`,
+              quantity: line.quantity,
+              price: parseFloat(line.cost.totalAmount.amount) / line.quantity,
+              weight: 0.35
+            }));
+
+            // Get customer info from Razorpay response
+            const customerInfo = {
+              name: response.razorpay_contact_name || 'Customer',
+              email: response.razorpay_contact_email || 'customer@drinkbrewy.com',
+              phone: response.razorpay_contact_phone || '9999999999',
+              address: response.razorpay_billing_address || 'Address',
+              city: response.razorpay_billing_city || 'Mumbai',
+              state: response.razorpay_billing_state || 'Maharashtra',
+              pincode: response.razorpay_billing_pincode || '400001'
+            };
+
             // Verify payment and create shipment
             const verifyRes = await fetch('/api/razorpay/verify-payment', {
               method: 'POST',
@@ -52,7 +77,9 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
               body: JSON.stringify({
                 ...response,
                 cartId: cart.id,
-                orderId: order.receipt
+                orderId: order.receipt,
+                customerInfo,
+                items
               })
             });
             
@@ -62,9 +89,10 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
               clearCart();
               onSuccess?.();
             } else {
-              onError?.(new Error('Payment verification failed'));
+              throw new Error(result.error || 'Payment verification failed');
             }
           } catch (error) {
+            console.error('Payment handler error:', error);
             onError?.(error);
           }
         },
@@ -80,8 +108,15 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
       };
 
       const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        console.error('Payment failed:', response.error);
+        onError?.(new Error(response.error.description));
+        setLoading(false);
+      });
+      
       rzp.open();
     } catch (error) {
+      console.error('Checkout error:', error);
       onError?.(error);
       setLoading(false);
     }
@@ -91,9 +126,9 @@ export default function RazorpayCheckout({ onSuccess, onError }: RazorpayCheckou
     <button
       onClick={handleCheckout}
       disabled={loading || !cart?.lines.length}
-      className="w-full bg-[#C41E3A] text-white py-4 rounded font-bold uppercase hover:bg-[#A3182F] transition disabled:opacity-50"
+      className="w-full bg-white text-[#C41E3A] py-4 rounded-lg font-bold uppercase hover:bg-white/90 transition disabled:opacity-50 shadow-lg"
     >
-      {loading ? 'Processing...' : 'Pay with Razorpay'}
+      {loading ? 'Processing...' : 'Proceed to Checkout'}
     </button>
   );
 }

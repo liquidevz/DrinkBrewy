@@ -5,7 +5,7 @@ import { Center, Environment, View } from "@react-three/drei";
 import FloatingCan from "@/components/FloatingCan";
 import { SodaCanProps } from "@/components/SodaCan";
 import { useCart } from "@/hooks/useCart";
-import { FrontendProduct } from '@/lib/shopify-products';
+import { FrontendProduct } from '@/lib/backend-products';
 import { Bubbles } from '@/slices/Hero/Bubbles';
 
 const FLAVOR_MAP: Record<string, SodaCanProps["flavor"]> = {

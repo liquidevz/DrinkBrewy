@@ -13,7 +13,7 @@ import { SodaCanProps } from "@/components/SodaCan";
 import { ArrowIcon } from "./ArrowIcon";
 import { WavyCircles } from "./WavyCircles";
 import { CarouselSlice } from "@/data/content";
-import { getShopifyProducts, FrontendProduct } from "@/lib/shopify-products";
+import { getBackendProducts, FrontendProduct } from "@/lib/backend-products";
 
 const SPINS_ON_CHANGE = 8;
 const FLAVOR_COLORS: Record<string, string> = {
@@ -44,8 +44,8 @@ const Carousel = ({ slice }: CarouselProps): JSX.Element => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const shopifyProducts = await getShopifyProducts();
-      setProducts(shopifyProducts);
+      const backendProducts = await getBackendProducts();
+      setProducts(backendProducts);
       setLoading(false);
     }
     fetchProducts();

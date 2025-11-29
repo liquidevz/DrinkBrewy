@@ -1,0 +1,13 @@
+
+> Brewy@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.4
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ○ Compiling /api/backend/products ...
+ ✓ Compiled /api/backend/products in 1454ms (53 modules)
+ GET /api/backend/products 200 in 1783ms

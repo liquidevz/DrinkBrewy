@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getShopifyProduct } from '@/lib/shopify-products';
+import { getBackendProduct } from '@/lib/backend-products';
 import ProductView from './ProductView';
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getShopifyProduct(params.handle);
+  const product = await getBackendProduct(params.handle);
 
   if (!product) {
     notFound();
@@ -13,7 +13,7 @@ export default async function ProductPage({ params }: { params: { handle: string
 }
 
 export async function generateMetadata({ params }: { params: { handle: string } }) {
-  const product = await getShopifyProduct(params.handle);
+  const product = await getBackendProduct(params.handle);
 
   if (!product) {
     return {
