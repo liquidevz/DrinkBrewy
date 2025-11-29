@@ -7,28 +7,21 @@ import RazorpayCheckout from "@/components/RazorpayCheckout";
 
 export default function Cart({ onClose }: { onClose: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { cart, updateQuantity, removeItem, clearCart, initializeCart, isLoading } = useCart();
+  const { items, updateQuantity, removeItem, clearCart, getTotalItems, getTotalPrice } = useCart();
   const [customer, setCustomer] = useState({ name: "", email: "", address: "" });
   const [ordered, setOrdered] = useState(false);
 
   useEffect(() => {
     setIsOpen(true);
-    initializeCart();
-  }, [initializeCart]);
+  }, []);
 
   const handleClose = () => {
     setIsOpen(false);
     setTimeout(onClose, 300);
   };
 
-  const cartItems = cart?.lines || [];
-  const total = cart?.cost.totalAmount.amount ? parseFloat(cart.cost.totalAmount.amount) : 0;
-
-  const handleCheckout = () => {
-    if (cart?.checkoutUrl) {
-      window.location.href = cart.checkoutUrl;
-    }
-  };
+  const total = getTotalPrice();
+  const totalItems = getTotalItems();
 
   return (
     <>
@@ -43,9 +36,9 @@ export default function Cart({ onClose }: { onClose: () => void }) {
         <div className="sticky top-0 bg-white/10 backdrop-blur-md border-b border-white/20 p-6 flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-black uppercase text-white">CART</h2>
-            {cartItems.length > 0 && (
+            {items.length > 0 && (
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white backdrop-blur-sm">
-                {cart?.totalQuantity || 0}
+                {totalItems}
               </span>
             )}
           </div>
@@ -59,16 +52,7 @@ export default function Cart({ onClose }: { onClose: () => void }) {
         
         <div className="p-6 pb-64">
           <AnimatePresence mode="wait">
-            {isLoading ? (
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-center text-white/70 py-8"
-              >
-                Loading...
-              </motion.p>
-            ) : cartItems.length === 0 ? (
+            {items.length === 0 ? (
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -78,124 +62,86 @@ export default function Cart({ onClose }: { onClose: () => void }) {
                 Your cart is empty
               </motion.p>
             ) : ordered ? (
-              <motion.p 
-                initial={{ opacity: 0, scale: 0.8 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="text-green-300 text-center py-8"
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="text-center py-8"
               >
-                Redirecting to checkout...
-              </motion.p>
+                <div className="text-6xl mb-4">🎉</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Order Placed!</h3>
+                <p className="text-white/80">Thank you for your order</p>
+              </motion.div>
             ) : (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="space-y-6"
+                className="space-y-4"
               >
-                {cartItems.map((item, index) => (
-                  <div key={item.id} className="flex gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                  <div className="h-20 w-20 bg-white/20 rounded-lg flex items-center justify-center hover:scale-105 transition-all duration-300">
-                    <span className="text-xs text-white/70">3D Model</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="font-bold text-white">{item.merchandise.product.title}</h3>
-                        <p className="text-sm text-white/70">{item.merchandise.title}</p>
+                {items.map((item, index) => (
+                  <motion.div 
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                  >
+                    <div className="flex gap-4">
+                      <div className="flex-1">
+                        <h3 className="font-bold text-white mb-1">{item.name}</h3>
+                        <p className="text-white/80 text-sm">₹{item.price}</p>
                       </div>
-                      <p className="font-bold text-white">{item.cost.totalAmount.currencyCode} {parseFloat(item.cost.totalAmount.amount).toFixed(2)}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center border border-white/30 rounded-lg bg-white/10">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 bg-white/10 rounded-lg p-1">
+                          <button 
+                            onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                            className="p-1 hover:bg-white/20 rounded transition-all duration-200 text-white"
+                          >
+                            <Minus size={16} />
+                          </button>
+                          <span className="w-8 text-center font-bold text-white">{item.quantity}</span>
+                          <button 
+                            onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                            className="p-1 hover:bg-white/20 rounded transition-all duration-200 text-white"
+                          >
+                            <Plus size={16} />
+                          </button>
+                        </div>
                         <button 
-                          onClick={() => item.id && updateQuantity(item.id, item.merchandise.id, Math.max(1, item.quantity - 1))} 
-                          className="p-2 hover:bg-white/20 hover:scale-110 transition-all duration-300 text-white"
-                          disabled={isLoading}
+                          onClick={() => removeItem(item.variantId)}
+                          className="p-2 hover:bg-red-500/30 rounded-lg transition-all duration-200 text-white"
                         >
-                          <Minus size={16} />
-                        </button>
-                        <span className="px-4 font-bold text-white">{item.quantity}</span>
-                        <button 
-                          onClick={() => item.id && updateQuantity(item.id, item.merchandise.id, item.quantity + 1)} 
-                          className="p-2 hover:bg-white/20 hover:scale-110 transition-all duration-300 text-white"
-                          disabled={isLoading}
-                        >
-                          <Plus size={16} />
+                          <Trash2 size={18} />
                         </button>
                       </div>
-                      <button 
-                        onClick={() => item.id && removeItem(item.id)} 
-                        className="p-2 hover:bg-red-500/30 rounded-lg text-red-200 hover:text-white hover:scale-110 transition-all duration-300"
-                        disabled={isLoading}
-                      >
-                        <Trash2 size={18} />
-                      </button>
                     </div>
-                  </div>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
         
-        <AnimatePresence>
-          {cartItems.length > 0 && !ordered && (
-            <motion.div 
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              transition={{ delay: 0.3, duration: 0.6, type: "spring", stiffness: 150, damping: 20 }}
-              className="fixed bottom-0 w-full bg-white/10 backdrop-blur-md border-t border-white/20 p-6 space-y-4 md:right-0 md:max-w-md"
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="font-bold text-lg text-white"
-                  >
-                    Total
-                  </motion.p>
-                  <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-xs text-white/70"
-                  >
-                    Taxes and shipping calculated at checkout.
-                  </motion.p>
-                </div>
-                <motion.p 
-                  key={total}
-                  initial={{ scale: 1.1 }}
-                  animate={{ scale: 1 }}
-                  className="text-2xl font-bold text-white"
-                >
-                  {cart?.cost.totalAmount.currencyCode} {parseFloat(cart?.cost.totalAmount.amount || '0').toFixed(2)}
-                </motion.p>
-              </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <RazorpayCheckout 
-                  onSuccess={() => {
-                    setOrdered(true);
-                    setTimeout(() => { setOrdered(false); handleClose(); }, 2000);
-                  }}
-                  onError={(error) => {
-                    console.error('Checkout error:', error);
-                    alert('Payment failed. Please try again.');
-                  }}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {items.length > 0 && !ordered && (
+          <div className="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20 p-6">
+            <div className="flex justify-between items-center mb-4 text-white">
+              <span className="text-lg font-bold">Total</span>
+              <span className="text-2xl font-black">₹{total.toFixed(2)}</span>
+            </div>
+            <RazorpayCheckout 
+              amount={total}
+              items={items}
+              onSuccess={() => {
+                setOrdered(true);
+                setTimeout(() => {
+                  clearCart();
+                  handleClose();
+                }, 2000);
+              }}
+            />
+          </div>
+        )}
       </div>
     </>
   );

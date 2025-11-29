@@ -27,7 +27,7 @@ export default function ProductView({ product }: ProductViewProps) {
   const flavorKey = FLAVOR_MAP[product.flavor] || 'blackCherry';
 
   const handleAddToCart = async () => {
-    await addItem(selectedVariant.id);
+    await addItem(selectedVariant.id, product);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

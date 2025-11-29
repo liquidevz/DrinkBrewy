@@ -1,80 +1,119 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { addToCart, removeFromCart, updateCart, createCart, getCart } from '@/lib/shopify-client';
-import { Cart } from '../../lib/shopify/types';
+
+interface CartItem {
+  id: string;
+  variantId: string;
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+}
 
 interface CartStore {
-  cart: Cart | null;
+  items: CartItem[];
   isCartOpen: boolean;
-  isLoading: boolean;
   setCartOpen: (open: boolean) => void;
-  addItem: (merchandiseId: string, quantity?: number) => Promise<void>;
-  removeItem: (lineId: string) => Promise<void>;
-  updateQuantity: (lineId: string, merchandiseId: string, quantity: number) => Promise<void>;
+  addItem: (variantId: string, product?: any) => Promise<void>;
+  removeItem: (variantId: string) => void;
+  updateQuantity: (variantId: string, quantity: number) => void;
   clearCart: () => void;
-  initializeCart: () => Promise<void>;
+  getTotalItems: () => number;
+  getTotalPrice: () => number;
 }
 
 export const useCart = create<CartStore>()(
   persist(
     (set, get) => ({
-      cart: null,
+      items: [],
       isCartOpen: false,
-      isLoading: false,
+      
       setCartOpen: (open) => set({ isCartOpen: open }),
       
-      initializeCart: async () => {
-        try {
-          set({ isLoading: true });
-          let cart = await getCart();
-          if (!cart) {
-            cart = await createCart();
+      addItem: async (variantId, product) => {
+        const items = get().items;
+        const existingItem = items.find(item => item.variantId === variantId);
+        
+        if (existingItem) {
+          // Increment quantity
+          set({
+            items: items.map(item =>
+              item.variantId === variantId
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+            isCartOpen: true
+          });
+        } else if (product) {
+          // Fetch product details if not provided
+          let productData = product;
+          if (!productData) {
+            try {
+              const res = await fetch(`/api/backend/products/${variantId.split('_')[1]}`);
+              if (res.ok) {
+                productData = await res.json();
+              }
+            } catch (error) {
+              console.error('Error fetching product:', error);
+              return;
+            }
           }
-          set({ cart, isLoading: false });
-        } catch (error) {
-          console.error('Error initializing cart:', error);
-          set({ isLoading: false });
+          
+          // Find the variant
+          const variant = productData.variants?.find((v: any) => v.id === variantId);
+          
+          // Add new item
+          const newItem: CartItem = {
+            id: `${Date.now()}`,
+            variantId,
+            productId: productData.id,
+            name: `${productData.name} - ${variant?.title || 'Single Can'}`,
+            price: variant?.price || productData.price,
+            quantity: 1,
+            image: productData.images?.[0]
+          };
+          
+          set({
+            items: [...items, newItem],
+            isCartOpen: true
+          });
         }
       },
       
-      addItem: async (merchandiseId, quantity = 1) => {
-        try {
-          set({ isLoading: true });
-          const cart = await addToCart([{ merchandiseId, quantity }]);
-          set({ cart, isCartOpen: true, isLoading: false });
-        } catch (error) {
-          console.error('Error adding to cart:', error);
-          set({ isLoading: false });
+      removeItem: (variantId) => {
+        set({
+          items: get().items.filter(item => item.variantId !== variantId)
+        });
+      },
+      
+      updateQuantity: (variantId, quantity) => {
+        if (quantity <= 0) {
+          get().removeItem(variantId);
+        } else {
+          set({
+            items: get().items.map(item =>
+              item.variantId === variantId
+                ? { ...item, quantity }
+                : item
+            )
+          });
         }
       },
       
-      removeItem: async (lineId) => {
-        try {
-          set({ isLoading: true });
-          const cart = await removeFromCart([lineId]);
-          set({ cart, isLoading: false });
-        } catch (error) {
-          console.error('Error removing from cart:', error);
-          set({ isLoading: false });
-        }
+      clearCart: () => set({ items: [] }),
+      
+      getTotalItems: () => {
+        return get().items.reduce((total, item) => total + item.quantity, 0);
       },
       
-      updateQuantity: async (lineId, merchandiseId, quantity) => {
-        try {
-          set({ isLoading: true });
-          const cart = await updateCart([{ id: lineId, merchandiseId, quantity }]);
-          set({ cart, isLoading: false });
-        } catch (error) {
-          console.error('Error updating cart:', error);
-          set({ isLoading: false });
-        }
-      },
-      
-      clearCart: () => set({ cart: null })
+      getTotalPrice: () => {
+        return get().items.reduce((total, item) => total + (item.price * item.quantity), 0);
+      }
     }),
     { 
       name: 'brewy-cart',
-      partialize: (state) => ({ cart: state.cart })
+      partialize: (state) => ({ items: state.items })
     }
   )
 );
