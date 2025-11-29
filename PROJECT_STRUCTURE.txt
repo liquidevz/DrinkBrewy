@@ -1,0 +1,132 @@
+./
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── server.ts
+│   ├── package-lock.json
+│   ├── package.json
+│   └── tsconfig.json
+├── lib/
+│   ├── shopify/
+│   │   ├── fragments/
+│   │   ├── mutations/
+│   │   ├── queries/
+│   │   ├── index.ts
+│   │   └── types.ts
+│   ├── constants.ts
+│   ├── type-guards.ts
+│   └── utils.ts
+├── public/
+│   ├── fonts/
+│   │   ├── Alpino-Variable.woff
+│   │   └── Alpino-Variable.woff2
+│   ├── hdr/
+│   │   ├── field.hdr
+│   │   └── lobby.hdr
+│   ├── labels/
+│   │   ├── brewy.png
+│   │   ├── cherry.png
+│   │   ├── grape.png
+│   │   ├── lemon-lime.png
+│   │   ├── strawberry.png
+│   │   ├── tv.png
+│   │   └── watermelon.png
+│   ├── 1.png
+│   ├── 2.png
+│   ├── 3.png
+│   ├── 4.png
+│   ├── 5.png
+│   ├── 6.png
+│   ├── AlternatingText.png
+│   ├── Brewytv.png
+│   ├── Soda-can.bin
+│   ├── Soda-can.gltf
+│   ├── care.png
+│   ├── commerce.png
+│   ├── community.png
+│   ├── creativity.png
+│   ├── promise.png
+│   ├── result.bin
+│   └── result.gltf
+├── src/
+│   ├── app/
+│   │   ├── admin/
+│   │   ├── api/
+│   │   ├── checkout/
+│   │   ├── products/
+│   │   ├── app.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── Bounded.tsx
+│   │   ├── BrewyFooter.tsx
+│   │   ├── BrewyLogo.tsx
+│   │   ├── BrewyTV.tsx
+│   │   ├── Button.tsx
+│   │   ├── Cart.tsx
+│   │   ├── CartInitializer.tsx
+│   │   ├── CircleText.tsx
+│   │   ├── FloatingBottle.tsx
+│   │   ├── FloatingBottomNav.tsx
+│   │   ├── FloatingButton.tsx
+│   │   ├── FloatingCan.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── RazorpayCheckout.tsx
+│   │   ├── ShiprocketFasterCheckout.tsx
+│   │   ├── SodaBottle.tsx
+│   │   ├── SodaCan.tsx
+│   │   ├── TVPlayer.tsx
+│   │   ├── TextSplitter.tsx
+│   │   └── ViewCanvas.tsx
+│   ├── data/
+│   │   ├── content.ts
+│   │   ├── products.json
+│   │   ├── products.ts
+│   │   └── videos.json
+│   ├── hooks/
+│   │   ├── useCart.ts
+│   │   ├── useMediaQuery.ts
+│   │   └── useStore.ts
+│   ├── lib/
+│   │   ├── adminApi.ts
+│   │   ├── api.ts
+│   │   ├── shopify-client.ts
+│   │   └── shopify-products.ts
+│   └── slices/
+│       ├── AlternatingText/
+│       ├── BigText/
+│       ├── Carousel/
+│       ├── Hero/
+│       ├── ProductGrid/
+│       ├── SkyDive/
+│       └── index.ts
+├── AlternatingText.png
+├── BrewyLogo_Red.svg
+├── DEPLOYMENT.md
+├── DEPLOYMENT_GUIDE.md
+├── Dockerfile
+├── Dockerfile.dev
+├── FULLSTACK_README.md
+├── IMPLEMENTATION_SUMMARY.md
+├── LICENSE
+├── PROJECT_STRUCTURE.txt
+├── README.md
+├── docker-compose.dev.yml
+├── docker-compose.yml
+├── docker-setup.bat
+├── docker-setup.sh
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── start-dev.sh*
+├── stop-dev.sh*
+├── tailwind.config.js
+└── tsconfig.json
+
+33 directories, 96 files
