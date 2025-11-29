@@ -1,9 +1,12 @@
+import dotenv from 'dotenv';
+// Load environment variables before other imports
+dotenv.config();
+
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
 import { connectDatabase } from './config/database';
 
 // Import routes
@@ -13,9 +16,6 @@ import adminRoutes from './routes/admin';
 import paymentRoutes from './routes/payment';
 import shipmentRoutes from './routes/shipment';
 import fasterCheckoutRoutes from './routes/faster-checkout';
-
-// Load environment variables
-dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
