@@ -44,7 +44,7 @@ cp .env.example .env
 ```bash
 cp .env.example .env.local
 # Edit with your values:
-# BACKEND_URL=http://localhost:5000
+# BACKEND_URL=http://localhost:3000
 # NEXT_PUBLIC_RAZORPAY_KEY_ID=your_key
 # RAZORPAY_KEY_SECRET=your_secret
 # SHIPROCKET_EMAIL=your_email
@@ -81,7 +81,7 @@ npm run dev
 ### 6. Access the Website
 
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:5000/api/products
+- **Backend API**: http://localhost:3000/api/products
 
 ## 📁 Key Files
 
@@ -105,8 +105,8 @@ npm run dev
 
 ### Test Backend API
 ```bash
-curl http://localhost:5000/api/products
-curl http://localhost:5000/api/products/watermelon
+curl http://localhost:3000/api/products
+curl http://localhost:3000/api/products/watermelon
 ```
 
 ### Test Frontend Flow
@@ -122,7 +122,7 @@ curl http://localhost:5000/api/products/watermelon
 ## 🔧 Troubleshooting
 
 ### Products not loading in carousel
-- Check backend is running: `curl http://localhost:5000/api/products`
+- Check backend is running: `curl http://localhost:3000/api/products`
 - Check MongoDB has data: `mongosh` → `use drinkbrewy` → `db.products.find()`
 - Check browser console for errors
 

@@ -3,7 +3,7 @@ import { useCart } from "@/hooks/useCart";
 import { useState, useEffect } from "react";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ShiprocketCheckout from "@/components/ShiprocketCheckout";
+import ShiprocketFasterCheckout from "@/components/ShiprocketFasterCheckout";
 
 export default function Cart({ onClose }: { onClose: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -128,8 +128,7 @@ export default function Cart({ onClose }: { onClose: () => void }) {
               <span className="text-lg font-bold">Total</span>
               <span className="text-2xl font-black">₹{total.toFixed(2)}</span>
             </div>
-            <ShiprocketCheckout
-              amount={total}
+            <ShiprocketFasterCheckout
               items={items}
               onSuccess={() => {
                 setOrdered(true);

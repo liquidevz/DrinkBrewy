@@ -70,7 +70,7 @@ export default function ShiprocketFasterCheckout({
   const checkServiceability = async () => {
     setCheckingServiceability(true);
     try {
-      const response = await fetch('http://localhost:5000/api/faster-checkout/check-serviceability', {
+      const response = await fetch('/api/faster-checkout/check-serviceability', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -103,7 +103,7 @@ export default function ShiprocketFasterCheckout({
 
     try {
       // Create Faster Checkout session
-      const response = await fetch('http://localhost:5000/api/faster-checkout/create', {
+      const response = await fetch('/api/faster-checkout/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -3,14 +3,14 @@ import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
   try {
-    const { 
-      razorpay_order_id, 
-      razorpay_payment_id, 
-      razorpay_signature, 
-      cartId, 
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+      cartId,
       orderId,
       customerInfo,
-      items 
+      items
     } = await req.json();
 
     // Verify payment signature
@@ -41,8 +41,8 @@ export async function POST(req: NextRequest) {
       if (!shipmentRes.ok) {
         console.error('Shipment creation failed:', await shipmentRes.text());
         // Don't fail the payment if shipment creation fails
-        return NextResponse.json({ 
-          success: true, 
+        return NextResponse.json({
+          success: true,
           paymentId: razorpay_payment_id,
           warning: 'Payment successful but shipment creation failed'
         });
@@ -50,25 +50,25 @@ export async function POST(req: NextRequest) {
 
       const shipment = await shipmentRes.json();
 
-      return NextResponse.json({ 
-        success: true, 
+      return NextResponse.json({
+        success: true,
         paymentId: razorpay_payment_id,
         shipmentId: shipment.shipment_id || shipment.order_id
       });
     } catch (shipmentError) {
       console.error('Shipment error:', shipmentError);
       // Payment was successful, so return success even if shipment fails
-      return NextResponse.json({ 
-        success: true, 
+      return NextResponse.json({
+        success: true,
         paymentId: razorpay_payment_id,
         warning: 'Payment successful but shipment creation encountered an error'
       });
     }
   } catch (error) {
     console.error('Payment verification failed:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Verification failed' 
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Verification failed'
     }, { status: 500 });
   }
 }

@@ -11,7 +11,7 @@ export default function OrdersAdmin() {
   });
 
   const fetchOrders = async () => {
-    const res = await fetch('http://localhost:5000/api/admin/orders', {
+    const res = await fetch('http://localhost:3000/api/admin/orders', {
       headers: getHeaders()
     });
     const data = await res.json();
@@ -23,7 +23,7 @@ export default function OrdersAdmin() {
   }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`http://localhost:5000/api/admin/orders/${id}/status`, {
+    await fetch(`http://localhost:3000/api/admin/orders/${id}/status`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify({ status })

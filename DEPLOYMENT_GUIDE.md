@@ -187,7 +187,7 @@ MONGODB_URI=mongodb://localhost:27017/drinkbrewy
        server_name api.drinkbrewy.com;
 
        location / {
-           proxy_pass http://localhost:5000;
+           proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
            proxy_set_header Upgrade $http_upgrade;
            proxy_set_header Connection 'upgrade';
@@ -303,7 +303,7 @@ MONGODB_URI=mongodb://localhost:27017/drinkbrewy
 
 Update all API calls in frontend to use production backend URL:
 ```typescript
-// Instead of: http://localhost:5000/api/...
+// Instead of: http://localhost:3000/api/...
 // Use: https://api.drinkbrewy.com/api/...
 ```
 

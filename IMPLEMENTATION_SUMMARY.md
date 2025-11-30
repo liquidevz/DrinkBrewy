@@ -253,9 +253,9 @@ npm install
 
 ### Access Points
 - **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:5000
+- **Backend**: http://localhost:3000
 - **Admin**: http://localhost:3000/admin
-- **API Health**: http://localhost:5000/health
+- **API Health**: http://localhost:3000/health
 
 ## 📋 Configuration Required
 
@@ -374,13 +374,13 @@ JWT_SECRET=your-super-secret-jwt-key
 ### API Testing
 ```bash
 # Health check
-curl http://localhost:5000/health
+curl http://localhost:3000/health
 
 # Get products
-curl http://localhost:5000/api/products
+curl http://localhost:3000/api/products
 
 # Admin login
-curl -X POST http://localhost:5000/api/admin/login \
+curl -X POST http://localhost:3000/api/admin/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}'
 ```

@@ -227,7 +227,7 @@ router.post('/check-serviceability', async (req: Request, res: Response) => {
 router.post('/webhook', async (req: Request, res: Response) => {
   try {
     const webhookData = req.body;
-    
+
     console.log('Faster Checkout Webhook received:', webhookData);
 
     const { order_id, payment_status, shipment_status, tracking_url, awb_code } = webhookData;

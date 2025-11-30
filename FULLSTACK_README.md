@@ -99,7 +99,7 @@ npm run build
 npm run dev
 ```
 
-The backend will run on `http://localhost:5000`
+The backend will run on `http://localhost:3000`
 
 ### 3. Frontend Setup
 
@@ -337,13 +337,13 @@ Update these in your hosting platform:
 ### Test Backend API
 ```bash
 # Health check
-curl http://localhost:5000/health
+curl http://localhost:3000/health
 
 # Get products
-curl http://localhost:5000/api/products
+curl http://localhost:3000/api/products
 
 # Admin login
-curl -X POST http://localhost:5000/api/admin/login \
+curl -X POST http://localhost:3000/api/admin/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}'
 ```

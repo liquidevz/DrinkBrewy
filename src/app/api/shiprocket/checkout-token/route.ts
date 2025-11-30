@@ -17,6 +17,13 @@ export async function POST(request: NextRequest) {
     const secretKey = process.env.SHIPROCKET_CHECKOUT_SECRET_KEY;
     const redirectUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
+    console.log('Env Check:', {
+      hasApiKey: !!apiKey,
+      hasSecretKey: !!secretKey,
+      apiKeyLength: apiKey?.length,
+      envKeys: Object.keys(process.env).filter(k => k.startsWith('SHIPROCKET'))
+    });
+
     if (!apiKey || !secretKey) {
       throw new Error('Shiprocket Checkout credentials not configured');
     }

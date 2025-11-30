@@ -56,7 +56,7 @@ export default function OrdersAdmin() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/orders', {
+      const res = await fetch('http://localhost:3000/api/orders', {
         headers: getHeaders(),
       });
       const data = await res.json();
@@ -73,7 +73,7 @@ export default function OrdersAdmin() {
   const createShipment = async (orderId: string) => {
     try {
       setProcessingShipment(orderId);
-      const response = await fetch('http://localhost:5000/api/shipment/create', {
+      const response = await fetch('http://localhost:3000/api/shipment/create', {
         method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify({
@@ -99,7 +99,7 @@ export default function OrdersAdmin() {
 
   const updateOrderStatus = async (orderId: string, status: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+      const response = await fetch(`http://localhost:3000/api/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: getHeaders(),
         body: JSON.stringify({ status }),

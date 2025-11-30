@@ -64,7 +64,7 @@ export default function ProductsAdmin() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/products');
+      const res = await fetch('http://localhost:3000/api/products');
       const data = await res.json();
       setProducts(data);
       setError(null);
@@ -83,8 +83,8 @@ export default function ProductsAdmin() {
 
     try {
       const url = editing
-        ? `http://localhost:5000/api/products/${editing}`
-        : 'http://localhost:5000/api/products';
+        ? `http://localhost:3000/api/products/${editing}`
+        : 'http://localhost:3000/api/products';
 
       const response = await fetch(url, {
         method: editing ? 'PUT' : 'POST',
@@ -117,7 +117,7 @@ export default function ProductsAdmin() {
 
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/products/${id}`, {
         method: 'DELETE',
         headers: getHeaders(),
       });
@@ -445,24 +445,22 @@ export default function ProductsAdmin() {
                       <td className="px-6 py-4 font-semibold">₹{product.price.toFixed(2)}</td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            product.stock > 10
+                          className={`px-3 py-1 rounded-full text-sm font-semibold ${product.stock > 10
                               ? 'bg-green-100 text-green-700'
                               : product.stock > 0
                                 ? 'bg-yellow-100 text-yellow-700'
                                 : 'bg-red-100 text-red-700'
-                          }`}
+                            }`}
                         >
                           {product.stock}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            product.availableForSale
+                          className={`px-3 py-1 rounded-full text-sm font-semibold ${product.availableForSale
                               ? 'bg-green-100 text-green-700'
                               : 'bg-gray-100 text-gray-700'
-                          }`}
+                            }`}
                         >
                           {product.availableForSale ? 'Active' : 'Inactive'}
                         </span>

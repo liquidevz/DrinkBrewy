@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:3000/api';
 
 const getHeaders = () => ({
   'Content-Type': 'application/json',
@@ -7,7 +7,7 @@ const getHeaders = () => ({
 
 export const adminApi = {
   getOrders: () => fetch(`${API_URL}/admin/orders`, { headers: getHeaders() }).then(r => r.json()),
-  updateOrderStatus: (id: string, status: string) => 
+  updateOrderStatus: (id: string, status: string) =>
     fetch(`${API_URL}/admin/orders/${id}/status`, {
       method: 'PUT',
       headers: getHeaders(),
