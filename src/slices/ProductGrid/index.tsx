@@ -12,19 +12,13 @@ import { SodaCanProps } from "@/components/SodaCan";
 import Carousel from "@/slices/Carousel";
 
 const CarouselComponent = ({ products }: { products: FrontendProduct[] }) => {
-  const carouselSlice = {
-    type: 'carousel' as const,
-    heading: ' ',
-    price_copy: 'Starting at ₹99'
-  };
-  
-  return <Carousel slice={carouselSlice} />;
+  return <Carousel heading=" " priceCopy="Starting at ₹99" />;
 };
 
 export default function ProductGrid() {
   const [products, setProducts] = useState<FrontendProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -38,7 +32,7 @@ export default function ProductGrid() {
     };
     fetchProducts();
   }, []);
-  
+
   return (
     <section className="relative overflow-hidden bg-[#FEF3E2] py-20">
       <div className="mx-auto max-w-7xl px-4">

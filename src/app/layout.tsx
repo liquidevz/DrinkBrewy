@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import dynamic from "next/dynamic";
 
 import "./app.css";
-import Header from "@/components/Header";
+
 import Footer from "@/components/Footer";
 
 
@@ -32,7 +32,7 @@ export default function RootLayout({
       </head>
       <body className="overflow-x-hidden bg-cream">
         <CartInitializer />
-        <Header />
+
         <main>
           {children}
           <ViewCanvas />

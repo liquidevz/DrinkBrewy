@@ -28,7 +28,7 @@ export default function Index() {
           case "alternating_text":
             return <div key={index} id="care"><AlternatingText slice={slice} /></div>;
           case "carousel":
-            return <div key={index} id="flavors"><Carousel slice={slice} /></div>;
+            return <div key={index} id="flavors"><Carousel heading={slice.heading} priceCopy={slice.price_copy} /></div>;
           case "skydive":
             return <SkyDive key={index} slice={slice} />;
           default:
