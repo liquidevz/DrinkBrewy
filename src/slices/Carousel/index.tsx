@@ -45,7 +45,7 @@ const Carousel = ({
 
       <div className="grid grid-cols-1 items-center justify-items-center">
         {/* can */}
-        <Link href="https://drinkbrewy.com/products/brewy-6-pack?variant=42845686071332">
+        <Link href="https://drinkbrewy.com/products/brewy-6-pack?variant=42845686071332" target="_top">
           <View className="aspect-square h-[70vmin] min-h-40 cursor-pointer">
             <Center position={[0, 0, 1.5]}>
               <FloatingCan

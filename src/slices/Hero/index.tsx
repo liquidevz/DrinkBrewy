@@ -145,6 +145,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
               buttonLink="https://drinkbrewy.com/products/brewy-6-pack?variant=42845686071332"
               buttonText={slice.button_text}
               className="hero-button mt-12"
+              target="_top"
             />
           </div>
         </div>

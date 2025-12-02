@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 
 import CartInitializer from "@/components/CartInitializer";
 import FloatingBottomNav from "@/components/FloatingBottomNav";
+import FrameBreaker from "@/components/FrameBreaker";
 
 const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
   ssr: false,
@@ -28,10 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={alpino.variable}>
       <head>
+        <base target="_top" />
         <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
       <body className="overflow-x-hidden bg-cream">
         <CartInitializer />
+        <FrameBreaker />
 
         <main>
           {children}
