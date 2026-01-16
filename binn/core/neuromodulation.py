@@ -15,13 +15,19 @@ class EmotionWheel:
         }
         self.categories = list(self.states.keys())
 
-    def update_from_spike(self, value_spike):
+    def update_from_current(self, current_map, dt_ms):
         """
-        Update emotional states based on a 'Value Spike' (external reward/input).
-        value_spike: dict of {category: delta}
+        Update emotional states based on real electronic current inputs.
+        current_map: dict of {category: current_in_amperes}
         """
-        for cat, delta in value_spike.items():
+        # Sensitivity: how much charge (Coulombs) affects the state
+        # 1 Coulomb = 1 Ampere * 1 Second
+        charge_sensitivity = 500.0 
+        
+        for cat, current in current_map.items():
             if cat in self.states:
+                # Delta = Current * Time * Sensitivity
+                delta = current * (dt_ms / 1000.0) * charge_sensitivity
                 self.states[cat] = np.clip(self.states[cat] + delta, 0.0, 1.0)
         
     def get_dopamine_influence(self):

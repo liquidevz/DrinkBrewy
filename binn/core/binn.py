@@ -20,13 +20,14 @@ class BINN:
         self.time = 0.0
         self.dt = 1.0 # ms
 
-    def step(self, input_spikes, value_spike=None):
+    def step(self, input_spikes, current_inputs=None):
         """
         Perform one time step of the BINN.
+        current_inputs: dict of {emotion_category: current_in_amperes}
         """
-        # 1. Update Emotions if there's a value spike
-        if value_spike:
-            self.emotion_wheel.update_from_spike(value_spike)
+        # 1. Update Emotions if there's electronic current input
+        if current_inputs:
+            self.emotion_wheel.update_from_current(current_inputs, self.dt)
             
         # 2. Get Dopamine Modulation
         modulation = self.dopamine_system.modulate(self.emotion_wheel)
