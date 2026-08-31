@@ -2,59 +2,57 @@
 import { useEffect, useRef, useState } from "react";
 import { useAnimate, motion } from "framer-motion";
 
-import { ShoppingCart, Menu, ArrowUpRight } from "lucide-react";
+import { Menu, ArrowUpRight } from "lucide-react";
 import useMeasure from "react-use-measure";
 import Link from "next/link";
 import { BrewyLogo } from "@/components/BrewyLogo";
-import { useCart } from "@/hooks/useCart";
-import Cart from "@/components/Cart";
 
 export default function Header() {
   const [hovered, setHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cart, isCartOpen, setCartOpen } = useCart();
-  const itemCount = cart?.totalQuantity || 0;
 
   const [scope, animate] = useAnimate();
   const navRef = useRef<HTMLElement | null>(null);
 
-  const handleMouseMove = ({ offsetX, offsetY, target }: { offsetX: number; offsetY: number; target: any }) => {
-    const isNavElement = [...target.classList].includes("glass-nav");
-
-    if (isNavElement) {
-      setHovered(true);
-      const top = offsetY + "px";
-      const left = offsetX + "px";
-      animate(scope.current, { top, left }, { duration: 0 });
-    } else {
-      setHovered(false);
-    }
-  };
-
   useEffect(() => {
     const nav = navRef.current;
-    nav?.addEventListener("mousemove", handleMouseMove);
-    return () => nav?.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
+    if (!nav) return;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const isNavElement = target.classList.contains("glass-nav");
+
+      if (isNavElement) {
+        setHovered(true);
+        animate(
+          scope.current,
+          { top: `${event.offsetY}px`, left: `${event.offsetX}px` },
+          { duration: 0 },
+        );
+      } else {
+        setHovered(false);
+      }
+    };
+
+    nav.addEventListener("mousemove", handleMouseMove);
+    return () => nav.removeEventListener("mousemove", handleMouseMove);
+  }, [animate, scope]);
 
   return (
-    <>
-      <nav
-        ref={navRef}
-        onMouseLeave={() => setHovered(false)}
-        style={{ cursor: hovered ? "none" : "auto" }}
-        className="glass-nav sticky top-0 z-[9999] mx-auto max-w-6xl overflow-hidden border-[1px] border-cream/30 bg-gradient-to-br from-cream/40 to-cream/20 backdrop-blur md:left-6 md:right-6 md:top-6 md:rounded-2xl hidden md:block"
-      >
-        <div className="glass-nav flex items-center justify-between px-5 py-5">
-          <Cursor hovered={hovered} scope={scope} />
-          <Links />
-          <Logo />
-          <Buttons setMenuOpen={setMenuOpen} itemCount={itemCount} setCartOpen={setCartOpen} />
-        </div>
-        <MobileMenu menuOpen={menuOpen} />
-      </nav>
-      {isCartOpen && <Cart onClose={() => setCartOpen(false)} />}
-    </>
+    <nav
+      ref={navRef}
+      onMouseLeave={() => setHovered(false)}
+      style={{ cursor: hovered ? "none" : "auto" }}
+      className="glass-nav sticky top-0 z-[9999] mx-auto max-w-6xl overflow-hidden border-[1px] border-cream/30 bg-gradient-to-br from-cream/40 to-cream/20 backdrop-blur md:left-6 md:right-6 md:top-6 md:rounded-2xl hidden md:block"
+    >
+      <div className="glass-nav flex items-center justify-between px-5 py-5">
+        <Cursor hovered={hovered} scope={scope} />
+        <Links />
+        <Logo />
+        <Buttons setMenuOpen={setMenuOpen} />
+      </div>
+      <MobileMenu menuOpen={menuOpen} />
+    </nav>
   );
 }
 
@@ -81,8 +79,8 @@ const Logo = () => (
 
 const Links = () => (
   <div className="hidden items-center gap-2 md:flex">
-    <GlassLink text="Home" href="/" />
-    <GlassLink text="Cola" href="/products/blackCherry" />
+    <GlassLink text="Home" href="/#home" />
+    <GlassLink text="Flavors" href="/#flavors" />
     <GlassLink text="About" href="/#care" />
     <GlassLink text="Community" href="/#community" />
   </div>
@@ -106,19 +104,8 @@ const TextLink = ({ text, href }: { text: string; href: string }) => (
   </Link>
 );
 
-const Buttons = ({ setMenuOpen, itemCount, setCartOpen }: { setMenuOpen: (open: boolean | ((prev: boolean) => boolean)) => void; itemCount: number; setCartOpen: (open: boolean) => void }) => (
+const Buttons = ({ setMenuOpen }: { setMenuOpen: (open: boolean | ((prev: boolean) => boolean)) => void }) => (
   <div className="flex items-center gap-4">
-    <button 
-      onClick={() => setCartOpen(true)}
-      className="relative scale-100 overflow-hidden rounded-lg bg-gradient-to-br from-[#C41E3A] from-40% to-red-400 px-4 py-2 font-medium text-white transition-transform hover:scale-105 active:scale-95"
-    >
-      <ShoppingCart size={20} />
-      {itemCount > 0 && (
-        <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-[#C41E3A] font-bold">
-          {itemCount}
-        </span>
-      )}
-    </button>
     <button
       onClick={() => setMenuOpen((pv) => !pv)}
       className="ml-2 block scale-100 text-3xl text-[#C41E3A]/90 transition-all hover:scale-105 hover:text-[#C41E3A] active:scale-95 md:hidden"
@@ -137,8 +124,8 @@ const MobileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
       className="block overflow-hidden md:hidden"
     >
       <div ref={ref} className="flex flex-col gap-4 px-4 pb-4">
-        <TextLink text="Home" href="/" />
-        <TextLink text="Cola" href="/products/blackCherry" />
+        <TextLink text="Home" href="/#home" />
+        <TextLink text="Flavors" href="/#flavors" />
         <TextLink text="About" href="/#care" />
         <TextLink text="Community" href="/#community" />
       </div>

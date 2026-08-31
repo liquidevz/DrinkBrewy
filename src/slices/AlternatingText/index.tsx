@@ -73,7 +73,9 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
                 ref={(el) => { imageRefs.current[index] = el; }}
                 className={clsx(
                   index % 2 === 0 ? "col-start-1" : "md:col-start-2",
-                  "rounded-lg p-4 backdrop-blur-lg max-md:bg-white/30 relative z-[105] opacity-0 transition-opacity duration-1000",
+                  // No backdrop blur / white veil here: the 3D can renders in
+                  // the shared canvas *behind* this panel, and either one hides it.
+                  "relative z-[105] rounded-lg p-4 opacity-0 transition-opacity duration-1000",
                 )}
               >
                 <Image

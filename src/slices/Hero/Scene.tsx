@@ -33,6 +33,15 @@ export default function Scene({}: Props) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Signal readiness as soon as the scene mounts. This component only mounts
+  // once the GLTF and label have resolved, so the intro choreography is
+  // unchanged — but the signal no longer depends on all five refs being
+  // populated within a single useGSAP pass, which would otherwise leave the
+  // hero stuck at opacity 0 with no way to recover.
+  useEffect(() => {
+    isReady();
+  }, [isReady]);
+
   useGSAP(() => {
     if (
       !can1Ref.current ||
@@ -42,8 +51,6 @@ export default function Scene({}: Props) {
       !groupRef.current
     )
       return;
-
-    isReady();
 
     // Set can starting location
     const xOffset = isMobile ? 1 : 1.5;

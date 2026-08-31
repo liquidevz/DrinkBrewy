@@ -16,11 +16,19 @@ export default function ViewCanvas({}: Props) {
   const [webglSupported, setWebglSupported] = useState(true);
 
   useEffect(() => {
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    const probe = document.createElement("canvas");
+    const gl = (probe.getContext("webgl2") ||
+      probe.getContext("webgl") ||
+      probe.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+
     if (!gl) {
       setWebglSupported(false);
+      return;
     }
+
+    // Browsers cap the number of live WebGL contexts (~16). The probe context
+    // has to be released or it permanently occupies one of those slots.
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
   }, []);
 
   if (!webglSupported) {
@@ -40,13 +48,12 @@ export default function ViewCanvas({}: Props) {
           zIndex: 30,
         }}
         shadows
+        // dpr already caps the pixel ratio; calling gl.setPixelRatio() in
+        // onCreated would override it and undo the cap on retina screens.
         dpr={[1, 1.5]}
         gl={{ antialias: true, failIfMajorPerformanceCaveat: false }}
         camera={{
           fov: 30,
-        }}
-        onCreated={({ gl }) => {
-          gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }}
       >
         <Suspense fallback={null}>

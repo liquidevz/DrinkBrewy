@@ -1,31 +1,16 @@
 "use client";
 
-import { ShoppingCart, Home } from "lucide-react";
+import { Home, Sparkles, Tv } from "lucide-react";
 import Link from "next/link";
-import { useCart } from "@/hooks/useCart";
 
 const FloatingBottomNav = () => {
-  const { cart, setCartOpen } = useCart();
-  const itemCount = cart?.totalQuantity || 0;
-
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-cream/95 backdrop-blur border-t border-[#C41E3A]/30 shadow-lg z-[9998] md:hidden">
       <div className="flex justify-around items-center py-3 px-4">
-        <NavLink text="Home" Icon={Home} href="/" />
-        <NavLink text="About" Icon={Home} href="/#care" />
-        <NavLink text="Cola" Icon={ShoppingCart} href="/products/blackCherry" />
-        <button
-          onClick={() => setCartOpen(true)}
-          className="text-sm w-12 hover:text-[#C41E3A] transition-colors flex flex-col gap-1 items-center relative"
-        >
-          <ShoppingCart size={16} />
-          <span className="text-xs">Cart</span>
-          {itemCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-[#C41E3A] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-              {itemCount}
-            </span>
-          )}
-        </button>
+        <NavLink text="Home" Icon={Home} href="/#home" />
+        <NavLink text="About" Icon={Sparkles} href="/#care" />
+        <NavLink text="Flavors" Icon={Sparkles} href="/#flavors" />
+        <NavLink text="Brewy TV" Icon={Tv} href="/#community" />
       </div>
     </nav>
   );
@@ -35,15 +20,12 @@ const NavLink = ({ text, Icon, href }: { text: string; Icon: any; href: string }
   return (
     <Link
       href={href}
-      className="text-sm w-12 hover:text-[#C41E3A] transition-colors flex flex-col gap-1 items-center text-[#C41E3A]/80"
+      className="text-sm w-14 hover:text-[#C41E3A] transition-colors flex flex-col gap-1 items-center text-[#C41E3A]/80"
     >
-      <Icon />
+      <Icon size={18} />
       <span className="text-xs">{text}</span>
     </Link>
   );
 };
 
-
-
 export default FloatingBottomNav;
-

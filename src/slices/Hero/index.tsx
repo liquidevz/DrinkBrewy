@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { View } from "@react-three/drei";
 import Image from "next/image";
+import clsx from "clsx";
 
 import { Bounded } from "@/components/Bounded";
 import Button from "@/components/Button";
@@ -30,15 +32,28 @@ export type HeroProps = {
 const Hero = ({ slice }: HeroProps): JSX.Element => {
   const ready = useStore((state) => state.ready);
   const isDesktop = useMediaQuery("(min-width: 768px)", true);
+  const [timedOut, setTimedOut] = useState(false);
+
+  // The hero stays hidden until the 3D scene reports ready, so the intro is
+  // synchronised with the cans dropping in. Anything that stops the scene from
+  // mounting — no WebGL, a failed model or texture, a throw inside the canvas —
+  // would otherwise leave the whole page blank forever, so reveal regardless
+  // after a short grace period.
+  useEffect(() => {
+    if (ready) return;
+    const timer = setTimeout(() => setTimedOut(true), 2500);
+    return () => clearTimeout(timer);
+  }, [ready]);
+
+  const revealed = ready || timedOut;
 
   useGSAP(
     () => {
-      if (!ready) return;
+      if (!revealed) return;
 
       const introTl = gsap.timeline();
 
       introTl
-        .set(".hero", { opacity: 1 })
         .from(".hero-header-word", {
           scale: 3,
           opacity: 0,
@@ -108,14 +123,18 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
           opacity: 0,
         });
     },
-    { dependencies: [ready] },
+    { dependencies: [revealed] },
   );
 
   return (
     <Bounded
       data-slice-type={slice.type}
       data-slice-variation="default"
-      className="hero opacity-0"
+      // Visibility is React's, not GSAP's. The old version revealed the hero
+      // from inside a gsap timeline, which only renders once the rAF ticker
+      // advances it — so a stalled ticker (or a 3D scene that never signalled
+      // ready) left the entire page blank. GSAP now only animates.
+      className={clsx("hero", !revealed && "opacity-0")}
     >
       <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] h-screen w-screen">
         <Scene />
@@ -142,10 +161,9 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
               <p>{slice.body}</p>
             </div>
             <Button
-              buttonLink="https://drinkbrewy.com/products/brewy-6-pack?variant=42845686071332"
+              buttonLink={slice.button_link}
               buttonText={slice.button_text}
               className="hero-button mt-12"
-              target="_top"
             />
           </div>
         </div>

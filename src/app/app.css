@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --background: 48 100% 93%;
+    --foreground: 350 45% 15%;
+    --primary: 350 73% 44%;
+    --primary-foreground: 48 100% 96%;
+    --muted: 48 40% 88%;
+    --muted-foreground: 350 20% 35%;
+    --border: 350 73% 44%;
+}
+
 /* Hide scrollbar for SideStaggerNavigation */
 .no-scrollbar::-webkit-scrollbar {
     display: none;

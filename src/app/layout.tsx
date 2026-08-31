@@ -4,9 +4,6 @@ import dynamic from "next/dynamic";
 import "./app.css";
 
 import Footer from "@/components/Footer";
-
-
-import CartInitializer from "@/components/CartInitializer";
 import FloatingBottomNav from "@/components/FloatingBottomNav";
 import FrameBreaker from "@/components/FrameBreaker";
 
@@ -30,10 +27,8 @@ export default function RootLayout({
     <html lang="en" className={alpino.variable}>
       <head>
         <base target="_top" />
-        <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
       <body className="overflow-x-hidden bg-cream">
-        <CartInitializer />
         <FrameBreaker />
 
         <main>

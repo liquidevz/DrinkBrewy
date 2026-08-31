@@ -23,10 +23,6 @@
     text_group: TextGroup[];
     }
 
-    export interface ProductGridSlice {
-    type: "product_grid";
-    }
-
     export interface BigTextSlice {
     type: "big_text";
     text: string;
@@ -39,10 +35,9 @@
     export interface CarouselSlice {
     type: "carousel";
     heading: string;
-    price_copy: string;
     }
 
-    export type Slice = HeroSlice | AlternatingTextSlice | ProductGridSlice | BigTextSlice | SkyDiveSlice | CarouselSlice;
+    export type Slice = HeroSlice | AlternatingTextSlice | BigTextSlice | SkyDiveSlice | CarouselSlice;
 
     export interface PageData {
     title: string;
@@ -99,8 +94,7 @@
         },
         {
         type: "carousel",
-        heading: " ",
-        price_copy: "Starting at ₹25"
+        heading: " "
         },
         {
         type: "big_text",

@@ -6,7 +6,6 @@ import { Center, Environment, View } from "@react-three/drei";
 import { useRef } from "react";
 import { WavyCircles } from "./WavyCircles";
 import { Group } from "three";
-import Link from "next/link";
 
 const FLAVOR: {
   flavor: SodaCanProps["flavor"];
@@ -19,7 +18,6 @@ const FLAVOR: {
  */
 export interface CarouselProps {
   heading?: string;
-  priceCopy?: string;
 }
 
 /**
@@ -27,7 +25,6 @@ export interface CarouselProps {
  */
 const Carousel = ({
   heading = "Choose Your Flavor",
-  priceCopy = "12 Packs • $35.00"
 }: CarouselProps): JSX.Element => {
   const sodaCanRef = useRef<Group>(null);
 
@@ -45,35 +42,29 @@ const Carousel = ({
 
       <div className="grid grid-cols-1 items-center justify-items-center">
         {/* can */}
-        <Link href="https://drinkbrewy.com/products/brewy-6-pack?variant=42845686071332" target="_top">
-          <View className="aspect-square h-[70vmin] min-h-40 cursor-pointer">
-            <Center position={[0, 0, 1.5]}>
-              <FloatingCan
-                floatIntensity={0.3}
-                rotationIntensity={1}
-                flavor={FLAVOR.flavor}
-                ref={sodaCanRef}
-                scale={0.6}
-              />
-            </Center>
-            <Environment
-              files="/hdr/lobby.hdr"
-              environmentIntensity={0.6}
-              environmentRotation={[0, 3, 0]}
+        <View className="aspect-square h-[70vmin] min-h-40">
+          <Center position={[0, 0, 1.5]}>
+            <FloatingCan
+              floatIntensity={0.3}
+              rotationIntensity={1}
+              flavor={FLAVOR.flavor}
+              ref={sodaCanRef}
+              scale={0.6}
             />
+          </Center>
+          <Environment
+            files="/hdr/lobby.hdr"
+            environmentIntensity={0.6}
+            environmentRotation={[0, 3, 0]}
+          />
 
-            <directionalLight intensity={6} position={[0, 1, 1]} />
-          </View>
-        </Link>
+          <directionalLight intensity={6} position={[0, 1, 1]} />
+        </View>
       </div>
 
       <div className="text-area relative mx-auto text-center">
         <div className="text-wrapper text-4xl font-medium">
           <p>{FLAVOR.name}</p>
-        </div>
-
-        <div className="mt-2 text-2xl font-normal opacity-90">
-          {priceCopy}
         </div>
       </div>
     </section>

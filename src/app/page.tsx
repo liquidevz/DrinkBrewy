@@ -1,19 +1,15 @@
 import { Metadata } from "next";
 import { homePageData } from "@/data/content";
-import { Hero, AlternatingText, ProductGrid, BigText, SkyDive, Carousel } from "@/slices";
+import { Hero, AlternatingText, BigText, SkyDive, Carousel } from "@/slices";
 import TVPlayer from "@/components/TVPlayer";
 
-export const dynamic = 'force-dynamic';
-
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  title: homePageData.meta_title,
+  description: homePageData.meta_description,
+  openGraph: {
     title: homePageData.meta_title,
-    description: homePageData.meta_description,
-    openGraph: {
-      title: homePageData.meta_title,
-    },
-  };
-}
+  },
+};
 
 export default function Index() {
   const slicesBeforeBigText = homePageData.slices.filter((slice) => slice.type !== 'big_text');
@@ -28,7 +24,7 @@ export default function Index() {
           case "alternating_text":
             return <div key={index} id="care"><AlternatingText slice={slice} /></div>;
           case "carousel":
-            return <div key={index} id="flavors"><Carousel heading={slice.heading} priceCopy={slice.price_copy} /></div>;
+            return <div key={index} id="flavors"><Carousel heading={slice.heading} /></div>;
           case "skydive":
             return <SkyDive key={index} slice={slice} />;
           default:

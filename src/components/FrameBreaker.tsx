@@ -2,30 +2,43 @@
 
 import { useEffect } from "react";
 
+/**
+ * The site is embedded in an iframe, so navigations that leave the current
+ * document have to replace the top window instead of the frame. In-page
+ * anchors (#flavors, #care, ...) must NOT be broken out of: they are just
+ * scroll targets, and forcing a top-level navigation for them reloads the
+ * host page and loses the scroll position.
+ */
 export default function FrameBreaker() {
-    useEffect(() => {
-        const handleClick = (e: MouseEvent) => {
-            const link = (e.target as HTMLElement).closest('a[href]');
-            if (link) {
-                const href = (link as HTMLAnchorElement).href;
-                // Check if it's an internal anchor link (hash) or same page, maybe we want to allow those? 
-                // But user said "Any navigation should replace the top window".
-                // Let's stick to the user's snippet logic.
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      // Let the browser handle modified clicks (new tab, download, etc.).
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
 
-                // If the link has target="_blank", let it be.
-                if ((link as HTMLAnchorElement).target === "_blank") return;
+      const link = (e.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
+      if (!link) return;
 
-                e.preventDefault();
-                window.top!.location.href = href;
-            }
-        };
+      // Opt-outs: new tabs and non-http(s) schemes (mailto:, tel:, ...).
+      if (link.target === "_blank") return;
+      if (link.protocol !== "http:" && link.protocol !== "https:") return;
 
-        document.addEventListener('click', handleClick);
+      // Same-document anchor link -> let it scroll in place.
+      const isSamePage =
+        link.pathname === window.location.pathname &&
+        link.search === window.location.search &&
+        link.host === window.location.host;
+      if (link.hash && isSamePage) return;
 
-        return () => {
-            document.removeEventListener('click', handleClick);
-        };
-    }, []);
+      // Everything else is a real navigation: escape the frame.
+      e.preventDefault();
+      (window.top ?? window).location.href = link.href;
+    };
 
-    return null;
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  return null;
 }

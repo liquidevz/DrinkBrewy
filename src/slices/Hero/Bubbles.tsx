@@ -1,7 +1,7 @@
 "use client";
 
 import * as THREE from "three";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 
@@ -23,16 +23,29 @@ export function Bubbles({
   const minSpeed = speed * 0.001;
   const maxSpeed = speed * 0.005;
 
-  // Create geometry and material for our mesh
-  const geometry = new THREE.SphereGeometry(bubbleSize, 16, 16);
+  // Create geometry and material for our mesh. These allocate GPU resources,
+  // so they must survive re-renders — rebuilding them every render leaks a
+  // sphere geometry and a material per render until the tab runs out of memory.
+  const geometry = useMemo(
+    () => new THREE.SphereGeometry(bubbleSize, 16, 16),
+    [bubbleSize],
+  );
 
-  const material = new THREE.MeshStandardMaterial({
-    transparent: true,
-    opacity,
-    color: 0xffffff,
-    emissive: 0xffffff,
-    emissiveIntensity: 0.3,
-  });
+  const material = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        transparent: true,
+        opacity,
+        color: 0xffffff,
+        emissive: 0xffffff,
+        emissiveIntensity: 0.3,
+      }),
+    [opacity],
+  );
+
+  // Release the GPU resources when they are replaced or the component unmounts.
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  useEffect(() => () => material.dispose(), [material]);
 
   // Runs once to create and place our bubbles
   useEffect(() => {
@@ -40,6 +53,12 @@ export function Bubbles({
     const mesh = meshRef.current;
     if (!mesh) {
       return;
+    }
+
+    // Keep the speed buffer in sync with count, otherwise useFrame reads
+    // undefined speeds and pushes the bubbles to NaN positions.
+    if (bubbleSpeed.current.length !== count) {
+      bubbleSpeed.current = new Float32Array(count);
     }
 
     // Create {count} number of bubbles in random locations
@@ -60,10 +79,6 @@ export function Bubbles({
     }
 
     mesh.instanceMatrix.needsUpdate = true;
-    return () => {
-      mesh.geometry.dispose();
-      (mesh.material as THREE.Material).dispose();
-    };
   }, [count, minSpeed, maxSpeed]);
 
   // useFrame runs on every animation frame
