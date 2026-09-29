@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Environment, OrbitControls } from "@react-three/drei";
+import StudioEnvironment from "@/components/StudioEnvironment";
 import { Group } from "three";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -110,7 +110,7 @@ export default function Scene({}: Props) {
           floatSpeed={FLOAT_SPEED}
         />
       </group>
-      <Environment files="/hdr/lobby.hdr" environmentIntensity={1.5} />
+      <StudioEnvironment />
     </group>
   );
 }

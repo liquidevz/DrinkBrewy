@@ -1,6 +1,7 @@
 "use client";
 
-import { Cloud, Clouds, Environment, Text } from "@react-three/drei";
+import { Cloud, Clouds, Text } from "@react-three/drei";
+import StudioEnvironment from "@/components/StudioEnvironment";
 import { useRef } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -103,7 +104,7 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
 
     scrollTl
       .to("body", {
-        backgroundColor: "#FFF8DD",
+        backgroundColor: "#0B0506",
         overwrite: "auto",
         duration: 0.1,
       })
@@ -145,24 +146,24 @@ export default function Scene({ sentence, flavor }: SkyDiveProps) {
           floatSpeed={3}
           scale={isDesktop ? 1 : 0.6}
         >
-          <pointLight intensity={30} color="#E85A7A" decay={0.6} />
+          <pointLight intensity={30} color="#FF3B4E" decay={0.6} />
         </FloatingCan>
       </group>
 
       {/* Clouds */}
       <Clouds ref={cloudsRef}>
-        <Cloud ref={cloud1Ref} bounds={[10, 10, 2]} />
-        <Cloud ref={cloud2Ref} bounds={[10, 10, 2]} />
+        {/* Dark cola-red smoke instead of white sky clouds. */}
+        <Cloud ref={cloud1Ref} bounds={[10, 10, 2]} color="#5a1a22" />
+        <Cloud ref={cloud2Ref} bounds={[10, 10, 2]} color="#5a1a22" />
       </Clouds>
 
       {/* Text */}
       <group ref={wordsRef}>
-        {sentence && <ThreeText sentence={sentence} color="#F97315" />}
+        {sentence && <ThreeText sentence={sentence} color="#FFF8DD" />}
       </group>
 
       {/* Lights */}
-      <ambientLight intensity={2} color="#F5B2C4" />
-      <Environment files="/hdr/field.hdr" environmentIntensity={1.5} />
+      <StudioEnvironment />
     </group>
   );
 }

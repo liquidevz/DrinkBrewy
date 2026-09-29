@@ -55,8 +55,7 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
     <section
       data-slice-type={slice.type}
       data-slice-variation="default"
-      className="alternating-text-container relative text-sky-950"
-      style={{ backgroundColor: '#FFF8DD' }}
+      className="alternating-text-container relative bg-cola text-cream"
     >
       <div className="relative z-[100] grid">
         <View className="alternating-text-view absolute left-0 top-0 h-screen w-full z-[120]">
@@ -72,10 +71,12 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
               <div
                 ref={(el) => { imageRefs.current[index] = el; }}
                 className={clsx(
-                  index % 2 === 0 ? "col-start-1" : "md:col-start-2",
-                  // No backdrop blur / white veil here: the 3D can renders in
-                  // the shared canvas *behind* this panel, and either one hides it.
-                  "relative z-[105] rounded-lg p-4 opacity-0 transition-opacity duration-1000",
+                  index % 2 === 0 ? "col-start-1 md:-rotate-1" : "md:col-start-2 md:rotate-1",
+                  // The hand-drawn art is navy and red ink on a transparent
+                  // background, drawn for cream paper; on Cola Dark it needs
+                  // its own paper card. The card sits above the shared 3D
+                  // canvas, so it stays in the column opposite the bottle.
+                  "relative z-[105] rounded-2xl bg-cream p-4 opacity-0 shadow-[0_30px_80px_rgba(0,0,0,0.55)] transition-opacity duration-1000",
                 )}
               >
                 <Image
@@ -83,7 +84,7 @@ const AlternatingText = ({ slice }: AlternatingTextProps): JSX.Element => {
                   alt={item.heading}
                   width={600}
                   height={800}
-                  className="object-contain md:w-[600px] md:h-[800px]"
+                  className="h-auto max-h-[72vh] w-auto object-contain"
                 />
               </div>
             </div>

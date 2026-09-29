@@ -98,17 +98,6 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       });
 
       scrollTl
-        .fromTo(
-          "body",
-          {
-            backgroundColor: "#FFF8DD",
-          },
-          {
-            backgroundColor: "#FFF8DD",
-            overwrite: "auto",
-          },
-          1,
-        )
         .from(".text-side-heading .split-char", {
           scale: 1.3,
           y: 40,
@@ -138,26 +127,26 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
     >
       <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] h-screen w-screen">
         <Scene />
-        <Bubbles count={300} speed={2} repeat={true} />
+        <Bubbles count={220} speed={2} repeat={true} bubbleSize={0.035} opacity={0.18} />
       </View>
 
       <div className="grid">
         <div className="grid h-screen place-items-center">
           <div className="grid auto-rows-min place-items-center text-center">
-            <h1 className="hero-header text-7xl font-black uppercase leading-[.8] text-red-600 md:text-[9rem] lg:text-[13rem]">
+            <h1 className="hero-header text-7xl font-black uppercase leading-[.8] text-brewy md:text-[9rem] lg:text-[13rem]">
               <TextSplitter
                 text={slice.heading}
                 wordDisplayStyle="block"
                 className="hero-header-word"
               />
             </h1>
-            <div className="hero-subtitle mt-4 text-xl font-medium text-red-600/80">
+            <div className="hero-subtitle mt-4 max-w-3xl text-xl font-medium text-cream/70">
               <p>{slice.subtitle}</p>
             </div>
-            <div className="hero-subheading mt-12 text-5xl font-semibold text-sky-950 lg:text-6xl">
+            <div className="hero-subheading mt-12 text-5xl font-semibold text-cream lg:text-6xl">
               <p>{slice.subheading}</p>
             </div>
-            <div className="hero-body text-2xl font-normal text-sky-950">
+            <div className="hero-body text-2xl font-normal text-cream/80">
               <p>{slice.body}</p>
             </div>
             <Button
@@ -170,10 +159,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
 
         <div className="text-side relative z-[80] grid h-screen items-center gap-4 md:grid-cols-2">
           <div>
-            <h2 className="text-side-heading text-balance text-6xl font-black uppercase text-sky-950 lg:text-8xl">
-              <TextSplitter text="Try All Flavors" />
+            <h2 className="text-side-heading text-balance text-6xl font-black uppercase text-cream lg:text-8xl">
+              <TextSplitter text={slice.second_heading} />
             </h2>
-            <div className="text-side-body mt-4 max-w-xl text-balance text-xl font-normal text-sky-950">
+            <div className="text-side-body mt-4 max-w-xl text-balance text-xl font-normal text-cream/70">
               <p>{slice.second_body}</p>
             </div>
           </div>

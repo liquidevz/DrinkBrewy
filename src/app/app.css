@@ -2,14 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cola Dark theme. Colours live in tailwind.config.js (cola / brewy / cream);
+   these HSL mirrors are for anything that reads the CSS variables. */
 :root {
-    --background: 48 100% 93%;
-    --foreground: 350 45% 15%;
+    --background: 350 38% 3%;
+    --foreground: 48 100% 93%;
     --primary: 350 73% 44%;
-    --primary-foreground: 48 100% 96%;
-    --muted: 48 40% 88%;
-    --muted-foreground: 350 20% 35%;
-    --border: 350 73% 44%;
+    --primary-foreground: 48 100% 93%;
+    --muted: 350 30% 9%;
+    --muted-foreground: 48 30% 70%;
+    --border: 48 100% 93%;
+    color-scheme: dark;
+}
+
+@layer base {
+    html {
+        background-color: #0B0506;
+    }
+
+    body {
+        @apply bg-cola text-cream antialiased;
+    }
+
+    ::selection {
+        @apply bg-brewy text-cream;
+    }
 }
 
 /* Hide scrollbar for SideStaggerNavigation */
@@ -19,15 +36,7 @@
 
 .no-scrollbar {
     -ms-overflow-style: none;
-    scrollbar-width: none; 
-}
-
-.floating-button {
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 999999 !important;
-    transform: translate3d(0, 0, 0) !important;
+    scrollbar-width: none;
 }
 
 @keyframes fade-in {
@@ -43,4 +52,28 @@
 
 .animate-fade-in {
     animation: fade-in 1s ease-out forwards;
+}
+
+/* A drop of light running down the "scroll to discover" line. */
+@keyframes scroll-hint {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(200%);
+    }
+}
+
+/* Lenis smooth scrolling (What's Inside page). */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
 }

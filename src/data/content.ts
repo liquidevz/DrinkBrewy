@@ -15,6 +15,7 @@
     button_text: string;
     button_link: string;
     cans_image: string;
+    second_heading: string;
     second_body: string;
     }
 
@@ -32,12 +33,7 @@
     type: "skydive";
     }
 
-    export interface CarouselSlice {
-    type: "carousel";
-    heading: string;
-    }
-
-    export type Slice = HeroSlice | AlternatingTextSlice | BigTextSlice | SkyDiveSlice | CarouselSlice;
+    export type Slice = HeroSlice | AlternatingTextSlice | BigTextSlice | SkyDiveSlice;
 
     export interface PageData {
     title: string;
@@ -58,10 +54,11 @@
         subtitle :"Zero Added Sugar. Low Cal. Added Prebiotics. Plant-Based. No Artificial Stuff. No BS!",
         subheading: "FREE FREE FREE!",
         body: "We’ll send you 3 Brewys for free — you just cover shipping",
-        button_text: "Explore Flavors",
-        button_link: "#flavors",
+        button_text: "See What's Inside",
+        button_link: "/whats-inside",
         cans_image: "/labels/brewy.png",
-        second_body: "Available in stores nationwide. Try all our amazing flavors today!"
+        second_heading: "Read the Label",
+        second_body: "Nothing hidden, nothing artificial. Turn the bottle around and see exactly what goes into every Brewy."
         },
         {
         type: "skydive"
@@ -91,10 +88,6 @@
             image: "/6.png"
             },
         ]
-        },
-        {
-        type: "carousel",
-        heading: " "
         },
         {
         type: "big_text",

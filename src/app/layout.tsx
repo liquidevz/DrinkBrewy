@@ -1,15 +1,11 @@
 import localFont from "next/font/local";
-import dynamic from "next/dynamic";
 
 import "./app.css";
 
-import Footer from "@/components/Footer";
 import FloatingBottomNav from "@/components/FloatingBottomNav";
 import FrameBreaker from "@/components/FrameBreaker";
-
-const ViewCanvas = dynamic(() => import("@/components/ViewCanvas"), {
-  ssr: false,
-});
+import SiteHeader from "@/components/SiteHeader";
+import ViewfinderFrame from "@/components/ViewfinderFrame";
 
 const alpino = localFont({
   src: "../../public/fonts/Alpino-Variable.woff2",
@@ -28,14 +24,13 @@ export default function RootLayout({
       <head>
         <base target="_top" />
       </head>
-      <body className="overflow-x-hidden bg-cream">
+      <body className="overflow-x-hidden">
         <FrameBreaker />
+        <SiteHeader />
+        <ViewfinderFrame />
 
-        <main>
-          {children}
-          <ViewCanvas />
-        </main>
-        <Footer />
+        {children}
+
         <FloatingBottomNav />
       </body>
     </html>

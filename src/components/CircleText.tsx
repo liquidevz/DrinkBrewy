@@ -7,8 +7,8 @@ type Props = {
 };
 
 export default function CircleText({
-  textColor = "#1A871D",
-  backgroundColor = "#FFFCFA",
+  textColor = "#FFF8DD",
+  backgroundColor = "#C41E3A",
   className,
 }: Props) {
   return (

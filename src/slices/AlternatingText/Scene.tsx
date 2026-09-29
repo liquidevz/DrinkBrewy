@@ -1,6 +1,6 @@
 "use client";
 
-import { Environment, Scroll } from "@react-three/drei";
+import StudioEnvironment from "@/components/StudioEnvironment";
 import { useRef } from "react";
 import { Group } from "three";
 import gsap from "gsap";
@@ -72,7 +72,7 @@ export default function Scene({}: Props) {
       rotation-y={isDesktop ? -0.3 : -0.2}
     >
       <FloatingCan flavor="strawberryLemonade" />
-      <Environment files={"/hdr/lobby.hdr"} environmentIntensity={1.5} />
+      <StudioEnvironment />
     </group>
   );
 }
