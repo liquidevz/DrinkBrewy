@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 
 import "./app.css";
 
-import FloatingBottomNav from "@/components/FloatingBottomNav";
 import FrameBreaker from "@/components/FrameBreaker";
 import SiteHeader from "@/components/SiteHeader";
 import ViewfinderFrame from "@/components/ViewfinderFrame";
@@ -31,7 +30,6 @@ export default function RootLayout({
 
         {children}
 
-        <FloatingBottomNav />
       </body>
     </html>
   );

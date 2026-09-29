@@ -124,6 +124,26 @@ export default function Experience() {
     else window.scrollTo({ top, behavior: "smooth" });
   };
 
+  // The header's menu asks the page to scroll to a section (the FAQ) with
+  // its smooth scroller; arriving from another page with #faq does the same.
+  useEffect(() => {
+    const scrollToId = (id: string) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 24;
+      if (lenis.current) lenis.current.scrollTo(top, { duration: 2 });
+      else window.scrollTo({ top, behavior: "smooth" });
+    };
+    const onEvent = (e: Event) => scrollToId((e as CustomEvent<string>).detail);
+    window.addEventListener("brewy:scroll-to", onEvent);
+    const hash = window.location.hash.slice(1);
+    const timer = hash ? window.setTimeout(() => scrollToId(hash), 1200) : 0;
+    return () => {
+      window.removeEventListener("brewy:scroll-to", onEvent);
+      window.clearTimeout(timer);
+    };
+  }, [lenis]);
+
   const firstStop = story.chapters.findIndex((c) => c.kind === "stop");
   const inTour = chapter.kind === "hero" || chapter.kind === "stop";
 
